@@ -100,7 +100,7 @@ local teleport = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Section = main:AddSection({
+local Section = teleport:AddSection({
 	Name = "🌎 Teleports"
 })
 
@@ -172,7 +172,7 @@ local misc = Window:MakeTab({
 	PremiumOnly = false
 })
 
-local Section = main:AddSection({
+local Section = misc:AddSection({
 	Name = "📌 Position"
 })
 
@@ -205,7 +205,7 @@ misc:AddButton({
   	end    
 })
 
-local Section = main:AddSection({
+local Section = misc:AddSection({
 	Name = "🏃‍♂️ Player"
 })
 
