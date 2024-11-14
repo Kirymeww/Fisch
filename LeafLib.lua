@@ -9,7 +9,7 @@ Kirymeww | Programming
 
 
 
-local Release = "Alpha 1"
+local Release = "Beta 8"
 local NotificationDuration = 3
 local LeafFolder = "LeafLib"
 local ConfigurationFolder = LeafFolder.."/Configurations"
@@ -874,7 +874,7 @@ end
 function LeafLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
-	Main.Size = UDim2.new(0, 450, 0, 260)
+	Main.Size = UDim2.new(0, 350, 0, 250)
 	Main.Visible = true
 	Main.BackgroundTransparency = 1
 	LoadingFrame.Title.TextTransparency = 1
