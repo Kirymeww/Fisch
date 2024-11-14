@@ -1,12 +1,12 @@
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local Leaf = loadstring(game:HttpGet('https://raw.githubusercontent.com/Kirymeww/LeafLib/refs/heads/main/LeafLib.lua'))()
 
-local Window = Rayfield:CreateWindow({
-	Name = "Rayfield Example Window",
-	LoadingTitle = "Rayfield Interface Suite",
+local Window = Leaf:CreateWindow({
+	Name = "Leaf Example Window",
+	LoadingTitle = "Leaf Interface Suite",
 	LoadingSubtitle = "by Sirius",
 	ConfigurationSaving = {
 		Enabled = true,
-		FolderName = "Rayfield Interface Suite",
+		FolderName = "Leaf Interface Suite",
 		FileName = "Big Hub"
 	},
 	KeySystem = false, -- Set this to true to use their key system
@@ -19,7 +19,7 @@ local Window = Rayfield:CreateWindow({
 	}
 })
 
-Rayfield:Notify("Title Example", "Content/Description Example", 4483362458) -- Notfication -- Title, Content, Image
+Leaf:Notify("Title Example", "Content/Description Example", 4483362458) -- Notfication -- Title, Content, Image
 
 local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
 
@@ -94,6 +94,6 @@ local Dropdown = Tab:CreateDropdown({
 local Button = Tab:CreateButton({
 	Name = "Destroy UI",
 	Callback = function()
-		Rayfield:Destroy()
+		Leaf:Destroy()
 	end,
 })
