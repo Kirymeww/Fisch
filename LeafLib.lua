@@ -7,7 +7,6 @@ local HttpService = game:GetService("HttpService")
 --Initialize data
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
-local VersionLeafLib = "Alpha 0.1"
 
 --LeafLib
 local LeafLib = {
@@ -23,14 +22,6 @@ local LeafLib = {
 			Divider = Color3.fromRGB(60, 60, 60),
 			Text = Color3.fromRGB(240, 240, 240),
 			TextDark = Color3.fromRGB(150, 150, 150)
-		},
-		Light = {
-			Main = Color3.fromRGB(255, 255, 255),
-			Second = Color3.fromRGB(245, 245, 245),
-			Stroke = Color3.fromRGB(200, 200, 200),
-			Divider = Color3.fromRGB(200, 200, 200),
-			Text = Color3.fromRGB(50, 50, 50),
-			TextDark = Color3.fromRGB(100, 100, 100)
 		}
 	},
 	SelectedTheme = "Default",
@@ -39,6 +30,7 @@ local LeafLib = {
 }
 
 local Icons = {}
+
 local Success, Response = pcall(function()
 	Icons = HttpService:JSONDecode(game:HttpGetAsync("https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json")).icons
 end)
@@ -108,51 +100,43 @@ end)
 
 local function AddDraggingFunctionality(DragPoint, Main)
     pcall(function()
-        local Dragging, DragInput, TouchPos, MousePos, FramePos = false, nil, nil, nil, nil
-
-        local function startDragging(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        local Dragging, DragInput, TouchPos, FramePos = false
+        DragPoint.InputBegan:Connect(function(Input)
+            if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                 Dragging = true
-                if input.UserInputType == Enum.UserInputType.Touch then
-                    TouchPos = input.Position
+                if Input.UserInputType == Enum.UserInputType.Touch then
+                    TouchPos = Input.Position
                 else
-                    MousePos = input.Position
+                    TouchPos = Input.Position
                 end
                 FramePos = Main.Position
-            end
-        end
 
-        local function stopDragging(input)
-            if input.UserInputState == Enum.UserInputState.End then
-                Dragging = false
-            end
-        end
-
-        DragPoint.InputBegan:Connect(function(input)
-            startDragging(input)
-            input.Changed:Connect(function()
-                stopDragging(input)
-            end)
-        end)
-
-        DragPoint.InputChanged:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-                DragInput = input
+                Input.Changed:Connect(function()
+                    if Input.UserInputState == Enum.UserInputState.End then
+                        Dragging = false
+                    end
+                end)
             end
         end)
 
-        UserInputService.InputChanged:Connect(function(input)
-            if input == DragInput and Dragging then
+        DragPoint.InputChanged:Connect(function(Input)
+            if (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
+                DragInput = Input
+            end
+        end)
+
+        UserInputService.InputChanged:Connect(function(Input)
+            if Input == DragInput and Dragging then
                 local Delta
-                if input.UserInputType == Enum.UserInputType.Touch then
-                    Delta = input.Position - TouchPos
-                    TouchPos = input.Position
+                if Input.UserInputType == Enum.UserInputType.Touch then
+                    Delta = Input.Position - TouchPos
                 else
-                    Delta = input.Position - MousePos
-                    MousePos = input.Position
+                    Delta = Input.Position - TouchPos
                 end
-                -- Обновляем позицию напрямую для более быстрого отклика
-                Main.Position = UDim2.new(FramePos.X.Scale, FramePos.X.Offset + Delta.X, FramePos.Y.Scale, FramePos.Y.Offset + Delta.Y)
+                
+                TweenService:Create(Main, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    Position = UDim2.new(FramePos.X.Scale, FramePos.X.Offset + Delta.X, FramePos.Y.Scale, FramePos.Y.Offset + Delta.Y)
+                }):Play()
             end
         end)
     end)
@@ -512,7 +496,7 @@ function LeafLib:MakeWindow(WindowConfig)
 	WindowConfig.CloseCallback = WindowConfig.CloseCallback or function() end
 	WindowConfig.ShowIcon = WindowConfig.ShowIcon or false
 	WindowConfig.Icon = WindowConfig.Icon or "rbxassetid://8834748103"
-	WindowConfig.IntroIcon = WindowConfig.IntroIcon or "rbxassetid://8834748103"
+	WindowConfig.IntroIcon = WindowConfig.IntroIcon or "rbxassetid://663710715"
 	LeafLib.Folder = WindowConfig.ConfigFolder
 	LeafLib.SaveCfg = WindowConfig.SaveConfig
 
