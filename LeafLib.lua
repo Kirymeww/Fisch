@@ -915,13 +915,21 @@ function LeafLibrary:CreateWindow(Settings)
 	AddDraggingFunctionality(Topbar,Main)
 
 	for _, TabButton in ipairs(TabList:GetChildren()) do
-		if TabButton.ClassName == "Frame" and TabButton.Name ~= "Placeholder" then
-			TabButton.BackgroundTransparency = 1
-			TabButton.Title.TextTransparency = 1
-			TabButton.Shadow.ImageTransparency = 1
-			TabButton.Image.ImageTransparency = 1
-			TabButton.UIStroke.Transparency = 1
-		end
+	    if TabButton.ClassName == "Frame" and TabButton.Name ~= "Placeholder" then
+	        TabButton.BackgroundTransparency = 1
+	        TabButton.Title.TextTransparency = 1
+	        if not TabButton:FindFirstChild("Shadow") then
+	            local Shadow = Instance.new("ImageLabel")
+	            Shadow.Name = "Shadow"
+	            Shadow.Parent = TabButton
+	            Shadow.Size = UDim2.new(1, 0, 1, 0)
+	            Shadow.Position = UDim2.new(0, 0, 0, 0)
+	            Shadow.Image = "rbxassetid://..."
+	            Shadow.ImageTransparency = 1
+	        end
+	        TabButton.Image.ImageTransparency = 1
+	        TabButton.UIStroke.Transparency = 1
+	    end
 	end
 
 	if Settings.Discord then
