@@ -1,30 +1,30 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Kirymeww/LeafLib/refs/heads/main/LeafLib.lua')))()
+local LeafLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Kirymeww/LeafLib/refs/heads/main/LeafLib.lua')))()
 
-local Window = OrionLib:MakeWindow({
+local Window = LeafLib:MakeWindow({
 		Name = "[🏴‍☠️] Fisch",
 		HidePremium = false,
 		SaveConfig = true,
 		IntroText = "Leaf Library",
-		IntroIcon = "rbxassetid://663710715",
+		IntroIcon = "rbxassetid://11330204845",
 		ConfigFolder = "LeafLib"
 })
 
-OrionLib:MakeNotification({
+LeafLib:MakeNotification({
 	Name = "✅ Loaded!",
 	Content = "😊 Have fun!",
-	Image = "rbxassetid://663710715",
+	Image = "rbxassetid://11330204845",
 	Time = 3
 })
 
 local home = Window:MakeTab({
 	Name = "🏡 Home",
-	Icon = "rbxassetid://663710715",
+	Icon = "rbxassetid://11330204845",
 	PremiumOnly = false
 })
 
 local main = Window:MakeTab({
 	Name = "🎣 Main",
-	Icon = "rbxassetid://663710715",
+	Icon = "rbxassetid://11330204845",
 	PremiumOnly = false
 })
 
@@ -96,11 +96,11 @@ main:AddToggle({
 
 local teleport = Window:MakeTab({
 	Name = "🌎 Teleport",
-	Icon = "rbxassetid://663710715",
+	Icon = "rbxassetid://11330204845",
 	PremiumOnly = false
 })
 
-local teleport = main:AddSection({
+local Section = main:AddSection({
 	Name = "🌎 Teleports"
 })
 
@@ -160,7 +160,7 @@ teleport:AddDropdown({
 
 local appraise = Window:MakeTab({
 	Name = "🔎 Appraise",
-	Icon = "rbxassetid://663710715",
+	Icon = "rbxassetid://11330204845",
 	PremiumOnly = false
 })
 
@@ -168,11 +168,11 @@ appraise:AddLabel("👁 Coming soon...")
 
 local misc = Window:MakeTab({
 	Name = "🛠 Misc",
-	Icon = "rbxassetid://663710715",
+	Icon = "rbxassetid://11330204845",
 	PremiumOnly = false
 })
 
-local misc = main:AddSection({
+local Section = main:AddSection({
 	Name = "📌 Position"
 })
 
@@ -205,7 +205,7 @@ misc:AddButton({
   	end    
 })
 
-local misc = main:AddSection({
+local Section = main:AddSection({
 	Name = "🏃‍♂️ Player"
 })
 
@@ -256,4 +256,4 @@ misc:AddSlider({
 	end    
 })
 
-OrionLib:Init()
+LeafLib:Init()
