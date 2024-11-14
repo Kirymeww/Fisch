@@ -107,58 +107,56 @@ task.spawn(function()
 end)
 
 local function AddDraggingFunctionality(DragPoint, Main)
-	pcall(function()
-		local Dragging, DragInput, TouchPos, MousePos, FramePos = false, nil, nil, nil, nil
+    pcall(function()
+        local Dragging, DragInput, TouchPos, MousePos, FramePos = false, nil, nil, nil, nil
 
-		local function startDragging(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				Dragging = true
-				if input.UserInputType == Enum.UserInputType.Touch then
-					TouchPos = input.Position
-				else
-					MousePos = input.Position
-				end
-				FramePos = Main.Position
-			end
-		end
+        local function startDragging(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                Dragging = true
+                if input.UserInputType == Enum.UserInputType.Touch then
+                    TouchPos = input.Position
+                else
+                    MousePos = input.Position
+                end
+                FramePos = Main.Position
+            end
+        end
 
-		local function stopDragging(input)
-			if input.UserInputState == Enum.UserInputState.End then
-				Dragging = false
-			end
-		end
+        local function stopDragging(input)
+            if input.UserInputState == Enum.UserInputState.End then
+                Dragging = false
+            end
+        end
 
-		DragPoint.InputBegan:Connect(function(input)
-			startDragging(input)
+        DragPoint.InputBegan:Connect(function(input)
+            startDragging(input)
+            input.Changed:Connect(function()
+                stopDragging(input)
+            end)
+        end)
 
-			input.Changed:Connect(function()
-				stopDragging(input)
-			end)
-		end)
+        DragPoint.InputChanged:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                DragInput = input
+            end
+        end)
 
-		DragPoint.InputChanged:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-				DragInput = input
-			end
-		end)
-
-		UserInputService.InputChanged:Connect(function(input)
-			if input == DragInput and Dragging then
-				local Delta
-				if input.UserInputType == Enum.UserInputType.Touch then
-					Delta = input.Position - TouchPos
-					TouchPos = input.Position
-				else
-					Delta = input.Position - MousePos
-					MousePos = input.Position
-				end
-				TweenService:Create(Main, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-					Position = UDim2.new(FramePos.X.Scale, FramePos.X.Offset + Delta.X, FramePos.Y.Scale, FramePos.Y.Offset + Delta.Y)
-				}):Play()
-			end
-		end)
-	end)
-end  
+        UserInputService.InputChanged:Connect(function(input)
+            if input == DragInput and Dragging then
+                local Delta
+                if input.UserInputType == Enum.UserInputType.Touch then
+                    Delta = input.Position - TouchPos
+                    TouchPos = input.Position
+                else
+                    Delta = input.Position - MousePos
+                    MousePos = input.Position
+                end
+                -- Обновляем позицию напрямую для более быстрого отклика
+                Main.Position = UDim2.new(FramePos.X.Scale, FramePos.X.Offset + Delta.X, FramePos.Y.Scale, FramePos.Y.Offset + Delta.Y)
+            end
+        end)
+    end)
+end
 
 local function Create(Name, Properties, Children)
 	local Object = Instance.new(Name)
