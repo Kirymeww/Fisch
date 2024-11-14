@@ -31,17 +31,9 @@ local LeafLib = {
 			Divider = Color3.fromRGB(200, 200, 200),
 			Text = Color3.fromRGB(50, 50, 50),
 			TextDark = Color3.fromRGB(100, 100, 100)
-		},
-		Green = {
-			Main = Color3.fromRGB(25, 50, 25),
-			Second = Color3.fromRGB(35, 70, 35),
-			Stroke = Color3.fromRGB(50, 100, 50),
-			Divider = Color3.fromRGB(50, 100, 50),
-			Text = Color3.fromRGB(200, 255, 200),
-			TextDark = Color3.fromRGB(150, 200, 150)
 		}
 	},
-	SelectedTheme = "Green",
+	SelectedTheme = "Default",
 	Folder = nil,
 	SaveCfg = false
 }
