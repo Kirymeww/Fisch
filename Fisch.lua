@@ -47,6 +47,41 @@ local function AutoReel()
    end
 end
 
+local function AutoSell()
+   while _G.asell do
+      print(444)
+      wait(1)
+   end
+end
+
+local function AutoFixMap()
+   while _G.areel do
+      print(333)
+      wait(1)
+   end
+end
+
+local function AutoFindChest()
+   while _G.areel do
+      print(333)
+      wait(1)
+   end
+end
+
+local function FreezePlayer()
+   while _G.areel do
+      print(333)
+      wait(1)
+   end
+end
+
+local function AutoPlaceGrabCage()
+   while _G.areel do
+      print(333)
+      wait(1)
+   end
+end
+
 --Services
 
 
@@ -58,9 +93,11 @@ _G.aplacecrabcage = false
 _G.freezep = false
 _G.afixmap = false
 _G.afindchest = false
+_G.asell = false
 
 _G.acastmode = nil
 _G.areelmode = nil
+_G.smerchant = nil
 
 
 --Tabs
@@ -138,13 +175,14 @@ local smerchant = ma:CreateDropdown({
    Name = "👨‍🦰 Select Merchant",
    Options = {
       "🌲 Marc", "🏖 Matt", "🌞 Max",
-      "❄️ Mike","⚰️ Cort", "🌊 Maverick", "🌌 Mel"
+      "❄️ Mike", "⚰️ Cort", "🌊 Maverick", "🌌 Mel"
    },
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "smerchant",
    Callback = function(Options)
-         print(Options)
+         _G.smerchant = Options[1]
+         print(_G.smerchant)
    end,
 })
 
