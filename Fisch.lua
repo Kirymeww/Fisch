@@ -41,18 +41,21 @@ Rayfield:Notify({
 local function AutoCast()
    while _G.acast do
       print(111)
+      wait(1)
    end
 end
 
 local function AutoShake()
    while _G.ashake do
       print(222)
+      wait(1)
    end
 end
 
 local function AutoReel()
    while _G.areel do
       print(333)
+      wait(1)
    end
 end
 
