@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.23",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.24",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -396,7 +396,8 @@ local titems = tp:CreateDropdown({
       "📍 GPS", 
       "🎣 Fish Radar", 
       "🤿 Diving Gear", 
-      "🐟 Bait Crate", 
+      "🐟 Bait Crate",
+      "🦈 Quality Bait Crate", 
       "🦀 Crab Cage"
    },
    CurrentOption = {""},
@@ -413,6 +414,8 @@ local titems = tp:CreateDropdown({
             teleportPlayer(370, 136, 250)
          elseif selectedItem == "🐟 Bait Crate" then
             teleportPlayer(384, 137, 334)
+         elseif selectedItem == "🦈 Quality Bait Crate" then
+            teleportPlayer(-174, 144, 1932)
          elseif selectedItem == "🦀 Crab Cage" then
             teleportPlayer(476, 151, 231)
          end
@@ -510,7 +513,7 @@ local freezep = misc:CreateToggle({
 local Section = misc:CreateSection("🙍‍♂️ Player")
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
-   CurrentValue = true,
+   AdoxygenV = true,
    Flag = "doxygen",
    Callback = function(AdoxygenV)
       for _, player in pairs(game.Players:GetPlayers()) do
