@@ -69,12 +69,15 @@ local function AutoFindChest()
 end
 
 local function FreezePlayer()
+   local player = game.Players.LocalPlayer
    while _G.freezep do
-      local player = game.Players.LocalPlayer
       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
          player.Character.HumanoidRootPart.Anchored = true
       end
       wait(1)
+   end
+   if not _G.freezep and player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+      player.Character.HumanoidRootPart.Anchored = false
    end
 end
 
@@ -323,13 +326,22 @@ local savep = misc:CreateButton({
 local resetp = misc:CreateButton({
    Name = "🟥 Reset Position",
    Callback = function()
-      savedPosition = nil
+      if savedPosition then
+         savedPosition = nil
          Rayfield:Notify({
-         Title = "🟩 Success!",
-         Content = "Position reset!",
-         Duration = 3,
-         Image = 4483362458,
-      })
+            Title = "🟩 Success!",
+            Content = "Position reset!",
+            Duration = 3,
+            Image = 4483362458,
+         })
+      else
+         Rayfield:Notify({
+            Title = "🟥 Failed!",
+            Content = "The position cannot be reset!",
+            Duration = 3,
+            Image = 4483362458,
+         })
+      end
    end,
 })
 
@@ -348,7 +360,7 @@ local teleportp = misc:CreateButton({
       else
          Rayfield:Notify({
          Title = "🟥 Failed!",
-         Content = "Cant teleport to saved position!",
+         Content = "No saved positions found!",
          Duration = 3,
          Image = 4483362458,
       })
