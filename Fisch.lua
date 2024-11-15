@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.26",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.27",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -74,7 +74,7 @@ local function navigateAndClick()
         until shakeui
     end
 
-    local button = shakeui.safezone.shakeui.button
+    local button = shakeui.safezone.button
 
     GuiService.SelectedObject = button
     VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game)
