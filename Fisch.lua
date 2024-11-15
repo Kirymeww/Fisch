@@ -54,14 +54,14 @@ local function AutoCast()
             rod.events.cast:FireServer(unpack(args))
          end
       end
-      wait(1)
+      wait(0.5)
    end
 end
 
 local function AutoShake()
    while _G.ashake do
       print(222)
-      wait(1)
+      wait(0.5)
    end
 end
 
@@ -80,7 +80,7 @@ local function AutoReel()
          }
       end
       game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
-      wait(1)
+      wait(0.5)
    end
 end
 
@@ -93,21 +93,21 @@ local function AutoSell()
             merchant.merchant.sellall:InvokeServer()
          end
       end
-      wait(1)
+      wait(0.5)
    end
 end
 
 local function AutoFixMap()
    while _G.afixmap do
       print(555)
-      wait(1)
+      wait(0.5)
    end
 end
 
 local function AutoFindChest()
    while _G.afindchest do
       print(666)
-      wait(1)
+      wait(0.5)
    end
 end
 
@@ -117,7 +117,7 @@ local function FreezePlayer()
       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
          player.Character.HumanoidRootPart.Anchored = true
       end
-      wait(1)
+      wait(0.5)
    end
    if not _G.freezep and player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
       player.Character.HumanoidRootPart.Anchored = false
@@ -127,14 +127,14 @@ end
 local function AutoPlaceGrabCage()
    while _G.aplacecrabcage do
       print(888)
-      wait(1)
+      wait(0.5)
    end
 end
 
 local function AutoDisableOxygen()
    while _G.doxygen do
       print(999)
-      wait(1)
+      wait(0.5)
    end
 end
 
