@@ -77,6 +77,7 @@ local tp = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
+   Flag = "acast",
    Callback = function(AcastV)
          _G.acast = AcastV
          AutoCast()
@@ -86,6 +87,7 @@ local acast = ma:CreateToggle({
 local ashake = ma:CreateToggle({
    Name = "🔀 Auto Shake",
    CurrentValue = false,
+   Flag = "ashake",
    Callback = function(AshakeV)
          _G.ashake = AshakeV
          AutoShake()
@@ -95,8 +97,11 @@ local ashake = ma:CreateToggle({
 local areel = ma:CreateToggle({
    Name = "🔃 Auto Reel",
    CurrentValue = false,
+   Flag = "areel",
    Callback = function(AreelV)
          _G.areel = AreelV
          AutoReel()
    end,
 })
+
+Rayfield:LoadConfiguration()
