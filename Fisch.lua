@@ -310,7 +310,7 @@ local ttotem = tp:CreateDropdown({
 local tfishingRods = tp:CreateDropdown({
    Name = "🎣 Select Fishing Rod",
    Options = {
-      "🎣 Basic Rod",
+      "🎣 Basic Rods",
       "🎯 Long Rod",
       "⚡ Rapid Rod", 
       "⏳ Steady Rod", 
@@ -326,7 +326,7 @@ local tfishingRods = tp:CreateDropdown({
    Callback = function(Options)
          local selectedRod = Options[1]
 
-         if selectedRod == "🎣 Basic Rod" then
+         if selectedRod == "🎣 Basic Rods" then
             teleportPlayer(454, 151, 239)
          elseif selectedRod == "🎯 Long Rod" then
             teleportPlayer(486, 175, 151)
