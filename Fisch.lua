@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.13",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.14",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -94,9 +94,6 @@ local function AutoDisableOxygen()
       wait(1)
    end
 end
-
---Services
-
 
 --Values
 _G.acast = false
@@ -196,8 +193,9 @@ local smerchant = ma:CreateDropdown({
    MultipleOptions = false,
    Flag = "smerchant",
    Callback = function(Options)
-         _G.smerchant = Options[1]
-         print(_G.smerchant)
+         local selectedMerchant = Options[1]
+         local merchantName = selectedMerchant:match("([^%s]+)")
+         _G.smerchant = merchantName .. " Merchant"
    end,
 })
 
@@ -212,15 +210,24 @@ local asell = ma:CreateToggle({
 })
 
 --Teleport
+function teleportPlayer(x, y, z)
+    local player = game.Players.LocalPlayer
+    if player and player.Character then
+        local character = player.Character
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(x, y, z)
+    end
+end
+
 local Section = tp:CreateSection("🌎 Teleports")
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {
       "🌲 Moosewood", "🏖 Roslit Bay", "🌋 Roslit Volcano",
       "🦋 Mushgrove Swamp", "🏝 Terrapin Island", "❄️ Snowcap Island",
-      "🌞 Sunstone Island", "⚰️ Forsaken Shores","🗿 Statue Of Sovereignty",
-      "⛪ Keepers Altar", "🌪 Vertigo","🌊 Desolate Deep",
-      "🌌 Desolate Pocket","🌊 Brine Pool","🌊 The Ocean",
+      "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
+      "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep",
+      "🌌 Desolate Pocket", "🌊 Brine Pool", "🌊 The Ocean",
       "🌊 Deep Ocean", "🌴 Earmark Isle", "🪸 Haddock Rock",
       "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike"
    },
@@ -228,62 +235,145 @@ local tlocation = tp:CreateDropdown({
    MultipleOptions = false,
    Flag = "tlocation",
    Callback = function(Options)
-         print(Options)
+         local selectedLocation = Options[1]
+         if selectedLocation == "🌲 Moosewood" then
+            teleportPlayer(380, 135, 223)
+         elseif selectedLocation == "🏖 Roslit Bay" then
+            teleportPlayer(-1485, 133, 720)
+         elseif selectedLocation == "🌋 Roslit Volcano" then
+            teleportPlayer(-1910, 165, 317)
+         elseif selectedLocation == "🍄 Mushgrove Swamp" then
+            teleportPlayer(2500, 131, -720)
+         elseif selectedLocation == "🏝 Terrapin Island" then
+            teleportPlayer(-18, 156, 1975)
+         elseif selectedLocation == "❄️ Snowcap Island" then
+            teleportPlayer(2624, 142, 2471)
+         elseif selectedLocation == "🌞 Sunstone Island" then
+            teleportPlayer(-933, 132, -1118)
+         elseif selectedLocation == "🏴‍☠️ Forsaken Shores" then
+            teleportPlayer(-2500, 134, 1540)
+         elseif selectedLocation == "🗿 Statue Of Sovereignty" then
+            teleportPlayer(50, 132, -1009)
+         elseif selectedLocation == "⛪ Keepers Altar" then
+            teleportPlayer(1307, -805, -96)
+         elseif selectedLocation == "🌪 Vertigo" then
+            teleportPlayer(-108, -515, 1065)
+         elseif selectedLocation == "🌊 Desolate Deep" then
+            teleportPlayer(-1000, -245, -2725)
+         elseif selectedLocation == "🌌 Desolate Pocket" then
+            teleportPlayer(-1500, -235, -2856)
+         elseif selectedLocation == "🌊 Brine Pool" then
+            teleportPlayer(-1800, -143, -3404)
+         elseif selectedLocation == "🌴 Earmark Isle" then
+            teleportPlayer(1230, 125, 575)
+         elseif selectedLocation == "🪸 Haddock Rock" then
+            teleportPlayer(-530, 125, -425)
+         elseif selectedLocation == "🌉 The Arch" then
+            teleportPlayer(1000, 125, -1250)
+         elseif selectedLocation == "🌳 Birch Cay" then
+            teleportPlayer(1700, 125, -2500)
+         elseif selectedLocation == "⚒ Harvesters Spike" then
+            teleportPlayer(-1270, 125, 1580)
+         end
    end,
 })
 
 local ttotem = tp:CreateDropdown({
    Name = "🗿 Select Totem",
-   Options = {"A","B"},
+   Options = {
+      "🕰️ Sundial", 
+      "🌌 Aurora", 
+      "🌬️ Windset", 
+      "💨 Smokescreen", 
+      "🌪️ Tempest"
+   },
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "ttotem",
    Callback = function(Options)
-         print(ttotemOptions)
+         local selectedTotem = Options[1]
+
+         if selectedTotem == "🕰️ Sundial" then
+            teleportPlayer(-1148, 135, -1075)
+         elseif selectedTotem == "🌌 Aurora" then
+            teleportPlayer(-1811, -137, -3282)
+         elseif selectedTotem == "🌬️ Windset" then
+            teleportPlayer(2849, 179, 2702)
+         elseif selectedTotem == "💨 Smokescreen" then
+            teleportPlayer(2789, 140, -625)
+         elseif selectedTotem == "🌪️ Tempest" then
+            teleportPlayer(35, 132.5, 1943)
+         end
    end,
 })
 
 local tfishingRods = tp:CreateDropdown({
    Name = "🎣 Select Fishing Rod",
-   Options = {"Rod1","Rod2"},
+   Options = {
+      "🎣 Basic Rod",
+      "🎯 Long Rod",
+      "⚡ Rapid Rod", 
+      "⏳ Steady Rod", 
+      "🍀 Fortune Rod",
+      "🧲 Magnet Rod", 
+      "⚔️ Trident Rod",
+      "🌌 Aurora Rod", 
+      "🌙 Nocturnal Rod"
+   },
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "tfishingRods",
    Callback = function(Options)
-         print(tfishingRodsOptions)
+         local selectedRod = Options[1]
+
+         if selectedRod == "🎣 Basic Rod" then
+            teleportPlayer(454, 151, 239)
+         elseif selectedRod == "🎯 Long Rod" then
+            teleportPlayer(486, 175, 151)
+         elseif selectedRod == "⚡ Rapid Rod" then
+            teleportPlayer(-1510, 142, 766)
+         elseif selectedRod == "⏳ Steady Rod" then
+            teleportPlayer(-1510, 142, 766)
+         elseif selectedRod == "🍀 Fortune Rod" then
+            teleportPlayer(-1510, 142, 766)
+         elseif selectedRod == "🧲 Magnet Rod" then
+            teleportPlayer(-200, 133, 1930)
+         elseif selectedRod == "⚔️ Trident Rod" then
+            teleportPlayer(-1484, -226, -2201)
+         elseif selectedRod == "🌌 Aurora Rod" then
+            teleportPlayer(-141, -512, 1145)
+         elseif selectedRod == "🌙 Nocturnal Rod" then
+            teleportPlayer(-141, -512, 1145)
+         end
    end,
 })
 
 local titems = tp:CreateDropdown({
    Name = "📦 Select Item",
-   Options = {"Item1","Item2"},
+   Options = {
+      "📍 GPS", 
+      "🎣 Fish Radar", 
+      "🤿 Diving Gear", 
+      "🐟 Bait Crate", 
+      "🦀 Crab Cage"
+   },
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "titems",
    Callback = function(Options)
-         print(titemsOptions)
-   end,
-})
+         local selectedItem = Options[1]
 
-local tnpcs = tp:CreateDropdown({
-   Name = "👤 Select NPC",
-   Options = {"NPC1","NPC2"},
-   CurrentOption = {""},
-   MultipleOptions = false,
-   Flag = "tnpcs",
-   Callback = function(Options)
-         print(tnpcsOptions)
-   end,
-})
-
-local tevents = tp:CreateDropdown({
-   Name = "🎉 Select Event",
-   Options = {"Event1","Event2"},
-   CurrentOption = {""},
-   MultipleOptions = false,
-   Flag = "tevents",
-   Callback = function(Options)
-         print(teventsOptions)
+         if selectedItem == "📍 GPS" then
+            teleportPlayer(515, 150, 285)
+         elseif selectedItem == "🎣 Fish Radar" then
+            teleportPlayer(365, 135, 275)
+         elseif selectedItem == "🤿 Diving Gear" then
+            teleportPlayer(370, 135, 250)
+         elseif selectedItem == "🐟 Bait Crate" then
+            teleportPlayer(315, 135, 335)
+         elseif selectedItem == "🦀 Crab Cage" then
+            teleportPlayer(465, 150, 235)
+         end
    end,
 })
 
@@ -394,7 +484,11 @@ local pspeed = misc:CreateSlider({
    CurrentValue = 16,
    Flag = "pspeed",
    Callback = function(pseedValue)
-      print(pseedValue)
+      local player = game.Players.LocalPlayer
+      if player and player.Character then
+         local humanoid = player.Character:WaitForChild("Humanoid")
+         humanoid.WalkSpeed = pseedValue
+      end
    end,
 })
 
@@ -406,7 +500,11 @@ local pjumpPower = misc:CreateSlider({
    CurrentValue = 50,
    Flag = "pjumpPower",
    Callback = function(pjumpPowerValue)
-      print(pjumpPowerValue)
+      local player = game.Players.LocalPlayer
+      if player and player.Character then
+         local humanoid = player.Character:WaitForChild("Humanoid")
+         humanoid.JumpPower = pjumpPowerValue
+      end
    end,
 })
 
@@ -418,7 +516,11 @@ local pfov = misc:CreateSlider({
    CurrentValue = 70,
    Flag = "pfov",
    Callback = function(pfovValue)
-      print(pfovValue)
+      local player = game.Players.LocalPlayer
+      if player and player.Character then
+         local camera = game:GetService("Workspace").CurrentCamera
+         camera.FieldOfView = pfovValue
+      end
    end,
 })
 
@@ -483,18 +585,6 @@ local theme = setting:CreateDropdown({
          elseif selectedTheme == "🌿 Serenity" then
             Window.ModifyTheme('Serenity')
          end
-   end,
-})
-
-local loadcfg = setting:CreateButton({
-   Name = "🔷 Save Config",
-   Callback = function()
-         Rayfield:Notify({
-         Title = "🟩 Success!",
-         Content = "Config Saved!",
-         Duration = 3,
-         Image = 4483362458,
-      })
    end,
 })
 
