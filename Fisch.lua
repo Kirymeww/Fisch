@@ -226,9 +226,8 @@ local tlocation = tp:CreateDropdown({
       "🌲 Moosewood", "🏖 Roslit Bay", "🌋 Roslit Volcano",
       "🍄 Mushgrove Swamp", "🏝 Terrapin Island", "❄️ Snowcap Island",
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
-      "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep",
-      "🌌 Desolate Pocket", "🌊 Brine Pool", "🌊 The Ocean",
-      "🌊 Deep Ocean", "🌴 Earmark Isle", "🪸 Haddock Rock",
+      "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
+      "🌊 Brine Pool", "🌴 Earmark Isle", "🪸 Haddock Rock",
       "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike"
    },
    CurrentOption = {""},
@@ -266,14 +265,14 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(-1800, -143, -3404)
          elseif selectedLocation == "🌴 Earmark Isle" then
             teleportPlayer(1230, 125, 575)
-         elseif selectedLocation == "🪸 Haddock Rock" then
-            teleportPlayer(-530, 125, -425)
+         elseif selectedLocation == "🗿 Haddock Rock" then
+            teleportPlayer(-570, 182, -413)
          elseif selectedLocation == "🌉 The Arch" then
             teleportPlayer(1000, 125, -1250)
          elseif selectedLocation == "🌳 Birch Cay" then
             teleportPlayer(1700, 125, -2500)
          elseif selectedLocation == "⚒ Harvesters Spike" then
-            teleportPlayer(-1270, 125, 1580)
+            teleportPlayer(-1257, 139, 1550)
          end
    end,
 })
