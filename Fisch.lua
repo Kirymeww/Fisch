@@ -64,10 +64,11 @@ _G.areelmode = nil
 
 
 --Tabs
-local ma = Window:CreateTab("🎣 Main", 4483362458) -- Title, Image
-local tp = Window:CreateTab("🌎 Teleport", 4483362458) -- Title, Image
-local appr = Window:CreateTab("🛒 Appraise", 4483362458) -- Title, Image
-local misc = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
+local ma = Window:CreateTab("🎣 Main", 4483362458)
+local tp = Window:CreateTab("🌎 Teleport", 4483362458)
+local appr = Window:CreateTab("🔎 Appraise", 4483362458)
+local misc = Window:CreateTab("🛠 Misc", 4483362458)
+local treasure = Window:CreateTab("💎 Treasure", 4483362458)
 
 --Main
 local fishingRods = {}
@@ -132,16 +133,49 @@ local areel = ma:CreateToggle({
    end,
 })
 
+local Section = ma:CreateSection("🛒 Merchant")
+local smerchant = ma:CreateDropdown({
+   Name = "👨‍🦰 Select Merchant",
+   Options = {
+      "🌲 Marc", "🏖 Matt", "🌞 Max",
+      "❄️ Mike","⚰️ Cort", "🌊 Maverick", "🌌 Mel"
+   },
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "smerchant",
+   Callback = function(Options)
+         print(Options)
+   end,
+})
+
+local asell = ma:CreateToggle({
+   Name = "💰 Auto Sell",
+   CurrentValue = false,
+   Flag = "asell",
+   Callback = function(AsellV)
+         _G.asell = AsellV
+         AutoSell()
+   end,
+})
+
 --Teleport
 local Section = tp:CreateSection("🌎 Teleports")
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
-   Options = {"1","2"},
+   Options = {
+      "🌲 Moosewood", "🏖 Roslit Bay", "🌋 Roslit Volcano",
+      "🦋 Mushgrove Swamp", "🏝 Terrapin Island", "❄️ Snowcap Island",
+      "🌞 Sunstone Island", "⚰️ Forsaken Shores","🗿 Statue Of Sovereignty",
+      "⛪ Keepers Altar", "🌪 Vertigo","🌊 Desolate Deep",
+      "🌌 Desolate Pocket","🌊 Brine Pool","🌊 The Ocean",
+      "🌊 Deep Ocean", "🌴 Earmark Isle", "🪸 Haddock Rock",
+      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike"
+   },
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "tlocation",
    Callback = function(Options)
-         print(tlocationOptions)
+         print(Options)
    end,
 })
 
@@ -217,7 +251,7 @@ local pspeed = misc:CreateSlider({
    Increment = 1,
    Suffix = "Speed",
    CurrentValue = 16,
-   Flag = "pspeed", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "pspeed",
    Callback = function(pseedValue)
       print(pseedValue)
    end,
@@ -248,5 +282,8 @@ local pfov = misc:CreateSlider({
       print(pfovValue)
    end,
 })
+
+--Treasure
+
 
 Rayfield:LoadConfiguration()
