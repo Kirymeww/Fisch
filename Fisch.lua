@@ -26,9 +26,34 @@ local Window = Rayfield:CreateWindow({
 })
 
 --Functions
+local function getFishingRods()
+    local rods = {}
+    local player = game.Players.LocalPlayer
+    local backpack = player.Backpack
+    
+    for _, item in ipairs(backpack:GetChildren()) do
+        if item.Name:find("Rod") then
+            table.insert(rods, item.Name)
+        end
+    end
+    
+    return rods
+end
+
 local function AutoCast()
    while _G.acast do
-      print(111)
+      local args = {
+         [1] = 100,
+         [2] = 1
+      }
+
+      local rodName = _G.acastmode
+      if rodName then
+         local rod = game.Players.LocalPlayer.Character:FindFirstChild(rodName)
+         if rod then
+            rod.events.cast:FireServer(unpack(args))
+         end
+      end
       wait(1)
    end
 end
@@ -42,14 +67,32 @@ end
 
 local function AutoReel()
    while _G.areel do
-      print(333)
+      local args
+      if _G.areelmode then
+         args = {
+            [1] = 100,
+            [2] = true
+         }
+      else
+         args = {
+            [1] = 100,
+            [2] = false
+         }
+      end
+      game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
       wait(1)
    end
 end
 
 local function AutoSell()
    while _G.asell do
-      print(444)
+      local merchantName = _G.smerchant and _G.smerchant:match("^(.-) Merchant$")
+      if merchantName then
+         local merchant = workspace.world.npcs:FindFirstChild(merchantName .. " Merchant")
+         if merchant then
+            merchant.merchant.sellall:InvokeServer()
+         end
+      end
       wait(1)
    end
 end
@@ -120,13 +163,7 @@ local treasure = Window:CreateTab("💎 Treasure", 4483362458)
 local setting = Window:CreateTab("⚙ Settings", 4483362458)
 
 --Main
-local fishingRods = {}
-for i, item in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
-    if string.find(item.Name, "Rod") then
-        table.insert(fishingRods, item.Name)
-    end
-end
-
+local fishingRods = getFishingRods()
 local Section = ma:CreateSection("🎣 Auto Cast")
 local acastmode = ma:CreateDropdown({
    Name = "🎣 Select Fishing Rod",
@@ -135,7 +172,7 @@ local acastmode = ma:CreateDropdown({
    MultipleOptions = false,
    Flag = "acastmode",
    Callback = function(Options)
-         print(Options)
+         _G.acastmode = Options[1]
    end,
 })
 
@@ -168,7 +205,7 @@ local areelmode = ma:CreateDropdown({
    MultipleOptions = false,
    Flag = "acastmode",
    Callback = function(Options)
-         print(Options)
+         _G.areelmode = Options[1] == "🟩 Perfect Catch" and true or false
    end,
 })
 
