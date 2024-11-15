@@ -55,29 +55,36 @@ local function AutoSell()
 end
 
 local function AutoFixMap()
-   while _G.areel do
-      print(333)
+   while _G.afixmap do
+      print(555)
       wait(1)
    end
 end
 
 local function AutoFindChest()
-   while _G.areel do
-      print(333)
+   while _G.afindchest do
+      print(666)
       wait(1)
    end
 end
 
 local function FreezePlayer()
-   while _G.areel do
-      print(333)
+   while _G.freezep do
+      print(777)
       wait(1)
    end
 end
 
 local function AutoPlaceGrabCage()
-   while _G.areel do
-      print(333)
+   while _G.aplacecrabcage do
+      print(888)
+      wait(1)
+   end
+end
+
+local function AutoDisableOxygen()
+   while _G.doxygen do
+      print(999)
       wait(1)
    end
 end
@@ -94,6 +101,7 @@ _G.freezep = false
 _G.afixmap = false
 _G.afindchest = false
 _G.asell = false
+_G.doxygen = false
 
 _G.acastmode = nil
 _G.areelmode = nil
@@ -283,6 +291,17 @@ local csapp = appr:CreateLabel("👁 Coming soon...")
 
 --Misc
 local Section = misc:CreateSection("🙍‍♂️ Player")
+local doxygen = ma:CreateToggle({
+   Name = "🛑 Disable Oxygen",
+   CurrentValue = false,
+   Flag = "doxygen",
+   Callback = function(AdoxygenV)
+         _G.doxygen = AdoxygenV
+         AutoDisableOxygen()
+   end,
+})
+
+local Divider = misc:CreateDivider()
 local pspeed = misc:CreateSlider({
    Name = "🏃‍♂️ Player Speed",
    Range = {16, 150},
@@ -322,6 +341,25 @@ local pfov = misc:CreateSlider({
 })
 
 --Treasure
+local Section = treasure:CreateSection("💎 Treasure")
+local afixmap = treasure:CreateToggle({
+   Name = "🔨 Auto Fix Map",
+   CurrentValue = false,
+   Flag = "afixmap",
+   Callback = function(AfixmapV)
+         _G.afixmap = AfixmapV
+         AutoFixMap()
+   end,
+})
 
+local afindchest = treasure:CreateToggle({
+   Name = "🔎 Auto Find Chest",
+   CurrentValue = false,
+   Flag = "afindchest",
+   Callback = function(AfindchestV)
+         _G.afindchest = AfindchestV
+         AutoFindChest()
+   end,
+})
 
 Rayfield:LoadConfiguration()
