@@ -364,15 +364,15 @@ local titems = tp:CreateDropdown({
          local selectedItem = Options[1]
 
          if selectedItem == "📍 GPS" then
-            teleportPlayer(515, 150, 285)
+            teleportPlayer(515, 151, 285)
          elseif selectedItem == "🎣 Fish Radar" then
-            teleportPlayer(365, 135, 275)
+            teleportPlayer(365, 136, 275)
          elseif selectedItem == "🤿 Diving Gear" then
-            teleportPlayer(370, 135, 250)
+            teleportPlayer(370, 136, 250)
          elseif selectedItem == "🐟 Bait Crate" then
-            teleportPlayer(315, 135, 335)
+            teleportPlayer(384, 137, 334)
          elseif selectedItem == "🦀 Crab Cage" then
-            teleportPlayer(465, 150, 235)
+            teleportPlayer(476, 151, 231)
          end
    end,
 })
