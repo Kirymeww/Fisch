@@ -74,6 +74,7 @@ local appr = Window:CreateTab("🛒 Appraise", 4483362458) -- Title, Image
 local misc = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
 
 --Main
+local Divider = ma:CreateDivider()
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
@@ -84,6 +85,7 @@ local acast = ma:CreateToggle({
    end,
 })
 
+local Divider = ma:CreateDivider()
 local ashake = ma:CreateToggle({
    Name = "🔀 Auto Shake",
    CurrentValue = false,
@@ -94,6 +96,7 @@ local ashake = ma:CreateToggle({
    end,
 })
 
+local Divider = ma:CreateDivider()
 local areel = ma:CreateToggle({
    Name = "🔃 Auto Reel",
    CurrentValue = false,
@@ -105,6 +108,7 @@ local areel = ma:CreateToggle({
 })
 
 --Teleport
+local Divider = tp:CreateDivider()
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {"1","2"},
@@ -116,8 +120,9 @@ local tlocation = tp:CreateDropdown({
    end,
 })
 
+local Divider = tp:CreateDivider()
 local ttotem = tp:CreateDropdown({
-   Name = "🪧 Select Totem",
+   Name = "🗿 Select Totem",
    Options = {"A","B"},
    CurrentOption = {""},
    MultipleOptions = false,
@@ -127,6 +132,7 @@ local ttotem = tp:CreateDropdown({
    end,
 })
 
+local Divider = tp:CreateDivider()
 local tfishingRods = tp:CreateDropdown({
    Name = "🎣 Select Fishing Rod",
    Options = {"Rod1","Rod2"},
@@ -138,6 +144,7 @@ local tfishingRods = tp:CreateDropdown({
    end,
 })
 
+local Divider = tp:CreateDivider()
 local titems = tp:CreateDropdown({
    Name = "📦 Select Item",
    Options = {"Item1","Item2"},
@@ -149,6 +156,7 @@ local titems = tp:CreateDropdown({
    end,
 })
 
+local Divider = tp:CreateDivider()
 local tnpcs = tp:CreateDropdown({
    Name = "👤 Select NPC",
    Options = {"NPC1","NPC2"},
@@ -160,6 +168,7 @@ local tnpcs = tp:CreateDropdown({
    end,
 })
 
+local Divider = tp:CreateDivider()
 local tevents = tp:CreateDropdown({
    Name = "🎉 Select Event",
    Options = {"Event1","Event2"},
@@ -172,13 +181,15 @@ local tevents = tp:CreateDropdown({
 })
 
 --Appraise
+local Divider = appr:CreateDivider()
 local csapp = appr:CreateLabel("👁 Coming soon...")
 
 --Misc
+local Divider = misc:CreateDivider()
 local pspeed = misc:CreateSlider({
    Name = "🏃‍♂️ Player Speed",
    Range = {16, 150},
-   Increment = 10,
+   Increment = 1,
    Suffix = "Speed",
    CurrentValue = 16,
    Flag = "pspeed", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
@@ -187,10 +198,11 @@ local pspeed = misc:CreateSlider({
    end,
 })
 
+local Divider = misc:CreateDivider()
 local pjumpPower = misc:CreateSlider({
    Name = "🦘 Jump Power",
    Range = {50, 150},
-   Increment = 10,
+   Increment = 1,
    Suffix = "Power",
    CurrentValue = 50,
    Flag = "pjumpPower",
@@ -199,10 +211,11 @@ local pjumpPower = misc:CreateSlider({
    end,
 })
 
+local Divider = misc:CreateDivider()
 local pfov = misc:CreateSlider({
    Name = "🔭 Field of View",
    Range = {70, 120},
-   Increment = 5,
+   Increment = 1,
    Suffix = "FOV",
    CurrentValue = 70,
    Flag = "pfov",
