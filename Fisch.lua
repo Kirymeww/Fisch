@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.15",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.16",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -26,20 +26,6 @@ local Window = Rayfield:CreateWindow({
 })
 
 --Functions
-local function getFishingRods()
-    local rods = {}
-    local player = game.Players.LocalPlayer
-    local backpack = player.Backpack
-    
-    for _, item in ipairs(backpack:GetChildren()) do
-        if item.Name:find("Rod") then
-            table.insert(rods, item.Name)
-        end
-    end
-    
-    return rods
-end
-
 local function AutoCast()
    while _G.acast do
       local args = {
@@ -47,14 +33,20 @@ local function AutoCast()
          [2] = 1
       }
 
-      local rodName = _G.acastmode
-      if rodName then
-         local rod = game.Players.LocalPlayer.Character:FindFirstChild(rodName)
-         if rod then
-            rod.events.cast:FireServer(unpack(args))
+      local player = game.Players.LocalPlayer
+      local rod = nil
+
+      for _, item in ipairs(player.Backpack:GetChildren()) do
+         if item.Name:find("Rod") then
+            rod = item
+            break
          end
       end
-      wait(0.5)
+
+      if rod then
+         rod.events.cast:FireServer(unpack(args))
+      end
+      wait(1)
    end
 end
 
@@ -86,9 +78,8 @@ end
 
 local function AutoSell()
    while _G.asell do
-      local merchantName = _G.smerchant and _G.smerchant:match("^(.-) Merchant$")
-      if merchantName then
-         local merchant = workspace.world.npcs:FindFirstChild(merchantName .. " Merchant")
+      if _G.smerchant then
+         local merchant = workspace.world.npcs:FindFirstChild(_G.smerchant)
          if merchant then
             merchant.merchant.sellall:InvokeServer()
          end
@@ -149,7 +140,6 @@ _G.afindchest = false
 _G.asell = false
 _G.doxygen = false
 
-_G.acastmode = nil
 _G.areelmode = nil
 _G.smerchant = nil
 
@@ -163,19 +153,7 @@ local treasure = Window:CreateTab("💎 Treasure", 4483362458)
 local setting = Window:CreateTab("⚙ Settings", 4483362458)
 
 --Main
-local fishingRods = getFishingRods()
 local Section = ma:CreateSection("🎣 Auto Cast")
-local acastmode = ma:CreateDropdown({
-   Name = "🎣 Select Fishing Rod",
-   Options = fishingRods,
-   CurrentOption = {""},
-   MultipleOptions = false,
-   Flag = "acastmode",
-   Callback = function(Options)
-         _G.acastmode = Options[1]
-   end,
-})
-
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
@@ -233,6 +211,7 @@ local smerchant = ma:CreateDropdown({
          local selectedMerchant = Options[1]
          local merchantName = selectedMerchant:match("([^%s]+)")
          _G.smerchant = merchantName .. " Merchant"
+         print(_G.smerchant)
    end,
 })
 
