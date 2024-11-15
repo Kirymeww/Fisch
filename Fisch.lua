@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.18",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.19",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -36,15 +36,21 @@ local function AutoCast()
       local player = game.Players.LocalPlayer
       local rod = nil
 
-      for _, item in ipairs(player.Backpack:GetChildren()) do
-         if item.Name:find("Rod") then
-            rod = item
-            break
+      if player.Character and player.Character:FindFirstChildOfClass("Tool") then
+         rod = player.Character:FindFirstChildOfClass("Tool")
+      else
+         for _, item in ipairs(player.Backpack:GetChildren()) do
+            if item.Name:find("Rod") then
+               rod = item
+               break
+            end
          end
       end
 
       if rod then
-         rod.Parent = player.Character
+         if rod.Parent ~= player.Character then
+            rod.Parent = player.Character
+         end
 
          if rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
             rod.events.cast:FireServer(unpack(args))
