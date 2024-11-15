@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.20",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.21",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -24,6 +24,9 @@ local Window = Rayfield:CreateWindow({
       Key = {"KBS"}
    }
 })
+
+--Services
+local VirtualInputManager = game:GetService("VirtualInputManager")
 
 --Functions
 local function AutoCast()
@@ -62,8 +65,15 @@ end
 
 local function AutoShake()
    while _G.ashake do
-      print(222)
-      wait(0.5)
+      local button = game.Players.LocalPlayer.PlayerGui.shakeui.safezone.button
+
+      if button then
+         local buttonPosition = button.AbsolutePosition + button.AbsoluteSize / 2
+         VirtualInputManager:SendMouseMovement(buttonPosition.X, buttonPosition.Y)
+         VirtualInputManager:SendMouseButtonEvent(buttonPosition.X, buttonPosition.Y, Enum.UserInputType.MouseButton1, true, game, 0)
+         VirtualInputManager:SendMouseButtonEvent(buttonPosition.X, buttonPosition.Y, Enum.UserInputType.MouseButton1, false, game, 0)
+      end
+      wait(0.1)
    end
 end
 
