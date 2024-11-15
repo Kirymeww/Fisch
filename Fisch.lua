@@ -7,7 +7,6 @@ local Window = Rayfield:CreateWindow({
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
-
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false,
 
@@ -21,7 +20,7 @@ local Window = Rayfield:CreateWindow({
    KeySettings = {
       Title = "[🏴‍☠️] Fisch",
       Subtitle = "🔑 Key System",
-      Note = "Passwoed: KBS",
+      Note = "Password: KBS",
       Key = {"KBS"}
    }
 })
@@ -174,7 +173,7 @@ local Section = appr:CreateSection("👁")
 local csapp = appr:CreateLabel("👁 Coming soon...")
 
 --Misc
-local Section = ma:CreateSection("🙍‍♂️ Player")
+local Section = misc:CreateSection("🙍‍♂️ Player")
 local pspeed = misc:CreateSlider({
    Name = "🏃‍♂️ Player Speed",
    Range = {16, 150},
