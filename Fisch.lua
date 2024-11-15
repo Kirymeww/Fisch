@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.19",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.20",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -114,14 +114,16 @@ end
 
 local function FreezePlayer()
    local player = game.Players.LocalPlayer
+   local initialPosition = nil
+
    while _G.freezep do
       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-         player.Character.HumanoidRootPart.Anchored = true
+         if not initialPosition then
+            initialPosition = player.Character.HumanoidRootPart.Position
+         end
+         player.Character.HumanoidRootPart.CFrame = CFrame.new(initialPosition)
       end
-      wait(0.5)
-   end
-   if not _G.freezep and player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-      player.Character.HumanoidRootPart.Anchored = false
+      wait(0.01)
    end
 end
 
