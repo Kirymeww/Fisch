@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.12",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.13",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -445,6 +445,7 @@ local afindchest = treasure:CreateToggle({
 })
 
 --Settings
+local Section = setting:CreateSection("⚙ Settings")
 local theme = setting:CreateDropdown({
    Name = "🎨 Select Theme",
    Options = {
@@ -482,5 +483,30 @@ local theme = setting:CreateDropdown({
          elseif selectedTheme == "🌿 Serenity" then
             Window.ModifyTheme('Serenity')
          end
+   end,
+})
+
+local loadcfg = setting:CreateButton({
+   Name = "🔷 Save Config",
+   Callback = function()
+         Rayfield:Notify({
+         Title = "🟩 Success!",
+         Content = "Config Saved!",
+         Duration = 3,
+         Image = 4483362458,
+      })
+   end,
+})
+
+local loadcfg = setting:CreateButton({
+   Name = "🔶 Load Config",
+   Callback = function()
+         Rayfield:LoadConfiguration()
+         Rayfield:Notify({
+         Title = "🟩 Success!",
+         Content = "Config Loaded!",
+         Duration = 3,
+         Image = 4483362458,
+      })
    end,
 })
