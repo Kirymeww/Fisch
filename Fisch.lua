@@ -17,24 +17,13 @@ local Window = Rayfield:CreateWindow({
       FileName = "FischCfg"
    },
       
-   KeySystem = true, -- Set this to true to use our key system
+   KeySystem = true,
    KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"kbs"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+      Title = "[🏴‍☠️] Fisch",
+      Subtitle = "🔑 Key System",
+      Note = "Passwoed: KBS",
+      Key = {"KBS"}
    }
-})
-
---Loaded Notify
-Rayfield:Notify({
-   Title = "✅ Loaded!",
-   Content = "😊 Have fun!",
-   Duration = 3,
-   Image = 4483362458,
 })
 
 --Functions
@@ -74,7 +63,7 @@ local appr = Window:CreateTab("🛒 Appraise", 4483362458) -- Title, Image
 local misc = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
 
 --Main
-local Divider = ma:CreateDivider()
+local acasts = ma:CreateSection("🎣 Auto Cast")
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
@@ -85,7 +74,7 @@ local acast = ma:CreateToggle({
    end,
 })
 
-local Divider = ma:CreateDivider()
+local Section = ma:CreateSection("🔀 Auto Shake")
 local ashake = ma:CreateToggle({
    Name = "🔀 Auto Shake",
    CurrentValue = false,
@@ -96,7 +85,7 @@ local ashake = ma:CreateToggle({
    end,
 })
 
-local Divider = ma:CreateDivider()
+local Section = ma:CreateSection("🔃 Auto Reel")
 local areel = ma:CreateToggle({
    Name = "🔃 Auto Reel",
    CurrentValue = false,
@@ -108,7 +97,7 @@ local areel = ma:CreateToggle({
 })
 
 --Teleport
-local Divider = tp:CreateDivider()
+local Section = tp:CreateSection("🌎 Teleports")
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {"1","2"},
@@ -181,11 +170,11 @@ local tevents = tp:CreateDropdown({
 })
 
 --Appraise
-local Divider = appr:CreateDivider()
+local Section = appr:CreateSection("👁")
 local csapp = appr:CreateLabel("👁 Coming soon...")
 
 --Misc
-local Divider = misc:CreateDivider()
+local Section = ma:CreateSection("🙍‍♂️ Player")
 local pspeed = misc:CreateSlider({
    Name = "🏃‍♂️ Player Speed",
    Range = {16, 150},
