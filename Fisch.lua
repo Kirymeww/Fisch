@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.11",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.12",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -231,7 +231,6 @@ local tlocation = tp:CreateDropdown({
    end,
 })
 
-local Divider = tp:CreateDivider()
 local ttotem = tp:CreateDropdown({
    Name = "🗿 Select Totem",
    Options = {"A","B"},
@@ -243,7 +242,6 @@ local ttotem = tp:CreateDropdown({
    end,
 })
 
-local Divider = tp:CreateDivider()
 local tfishingRods = tp:CreateDropdown({
    Name = "🎣 Select Fishing Rod",
    Options = {"Rod1","Rod2"},
@@ -255,7 +253,6 @@ local tfishingRods = tp:CreateDropdown({
    end,
 })
 
-local Divider = tp:CreateDivider()
 local titems = tp:CreateDropdown({
    Name = "📦 Select Item",
    Options = {"Item1","Item2"},
@@ -267,7 +264,6 @@ local titems = tp:CreateDropdown({
    end,
 })
 
-local Divider = tp:CreateDivider()
 local tnpcs = tp:CreateDropdown({
    Name = "👤 Select NPC",
    Options = {"NPC1","NPC2"},
@@ -279,7 +275,6 @@ local tnpcs = tp:CreateDropdown({
    end,
 })
 
-local Divider = tp:CreateDivider()
 local tevents = tp:CreateDropdown({
    Name = "🎉 Select Event",
    Options = {"Event1","Event2"},
