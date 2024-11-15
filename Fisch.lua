@@ -224,7 +224,7 @@ local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {
       "🌲 Moosewood", "🏖 Roslit Bay", "🌋 Roslit Volcano",
-      "🦋 Mushgrove Swamp", "🏝 Terrapin Island", "❄️ Snowcap Island",
+      "🍄 Mushgrove Swamp", "🏝 Terrapin Island", "❄️ Snowcap Island",
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep",
       "🌌 Desolate Pocket", "🌊 Brine Pool", "🌊 The Ocean",
