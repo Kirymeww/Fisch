@@ -120,6 +120,7 @@ local tp = Window:CreateTab("🌎 Teleport", 4483362458)
 local appr = Window:CreateTab("🔎 Appraise", 4483362458)
 local misc = Window:CreateTab("🛠 Misc", 4483362458)
 local treasure = Window:CreateTab("💎 Treasure", 4483362458)
+local setting = Window:CreateTab("⚙ Settings", 4483362458)
 
 --Main
 local fishingRods = {}
@@ -440,5 +441,46 @@ local afindchest = treasure:CreateToggle({
    Callback = function(AfindchestV)
          _G.afindchest = AfindchestV
          AutoFindChest()
+   end,
+})
+
+--Settings
+local theme = setting:CreateDropdown({
+   Name = "🎨 Select Theme",
+   Options = {
+      "🌟 Default", 
+      "✨ Amber Glow", 
+      "💜 Amethyst", 
+      "🌸 Bloom", 
+      "🌌 Dark Blue", 
+      "🍃 Green", 
+      "🌞 Light", 
+      "🌊 Ocean", 
+      "🌿 Serenity"
+   },
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "themes",
+   Callback = function(Options)
+         local selectedTheme = Options[1]
+         if selectedTheme == "🌟 Default" then
+            Window.ModifyTheme('Default')
+         elseif selectedTheme == "✨ Amber Glow" then
+            Window.ModifyTheme('AmberGlow')
+         elseif selectedTheme == "💜 Amethyst" then
+            Window.ModifyTheme('Amethyst')
+         elseif selectedTheme == "🌸 Bloom" then
+            Window.ModifyTheme('Bloom')
+         elseif selectedTheme == "🌌 Dark Blue" then
+            Window.ModifyTheme('DarkBlue')
+         elseif selectedTheme == "🍃 Green" then
+            Window.ModifyTheme('Green')
+         elseif selectedTheme == "🌞 Light" then
+            Window.ModifyTheme('Light')
+         elseif selectedTheme == "🌊 Ocean" then
+            Window.ModifyTheme('Ocean')
+         elseif selectedTheme == "🌿 Serenity" then
+            Window.ModifyTheme('Serenity')
+         end
    end,
 })
