@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.16",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.17",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -201,17 +201,16 @@ local Section = ma:CreateSection("🛒 Merchant")
 local smerchant = ma:CreateDropdown({
    Name = "👨‍🦰 Select Merchant",
    Options = {
-      "🌲 Marc", "🏖 Matt", "🌞 Max",
-      "❄️ Mike", "⚰️ Cort", "🌊 Maverick", "🌌 Mel"
+      "🌲 Marc", "🏖 Matt", "🌞 Max", "❄️ Mike", 
+      "⚰️ Cort", "🌊 Maverick", "🌌 Mel"
    },
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "smerchant",
    Callback = function(Options)
          local selectedMerchant = Options[1]
-         local merchantName = selectedMerchant:match("([^%s]+)")
+         local merchantName = selectedMerchant:match("%s*(%w+)")
          _G.smerchant = merchantName .. " Merchant"
-         print(_G.smerchant)
    end,
 })
 
