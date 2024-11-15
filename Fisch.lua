@@ -70,7 +70,10 @@ end
 
 local function FreezePlayer()
    while _G.freezep do
-      print(777)
+      local player = game.Players.LocalPlayer
+      if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+         player.Character.HumanoidRootPart.Anchored = true
+      end
       wait(1)
    end
 end
@@ -290,8 +293,82 @@ local Section = appr:CreateSection("👁")
 local csapp = appr:CreateLabel("👁 Coming soon...")
 
 --Misc
+local Section = misc:CreateSection("📌 Position")
+
+local savedPosition = nil
+
+local savep = misc:CreateButton({
+   Name = "🟩 Save Position",
+   Callback = function()
+      local player = game.Players.LocalPlayer
+      if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+         savedPosition = player.Character.HumanoidRootPart.Position
+         Rayfield:Notify({
+         Title = "🟩 Success!",
+         Content = "Position saved!",
+         Duration = 3,
+         Image = 4483362458,
+      })
+      else
+         Rayfield:Notify({
+         Title = "🟥 Failed!",
+         Content = "Position not saved!",
+         Duration = 3,
+         Image = 4483362458,
+      })
+      end
+   end,
+})
+
+local resetp = misc:CreateButton({
+   Name = "🟥 Reset Position",
+   Callback = function()
+      savedPosition = nil
+         Rayfield:Notify({
+         Title = "🟩 Success!",
+         Content = "Position reset!",
+         Duration = 3,
+         Image = 4483362458,
+      })
+   end,
+})
+
+local teleportp = misc:CreateButton({
+   Name = "🟨 Teleport To Saved Position",
+   Callback = function()
+      local player = game.Players.LocalPlayer
+      if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and savedPosition then
+         player.Character.HumanoidRootPart.CFrame = CFrame.new(savedPosition)
+         Rayfield:Notify({
+         Title = "🟩 Success!",
+         Content = "Teleported to saved position!",
+         Duration = 3,
+         Image = 4483362458,
+      })
+      else
+         Rayfield:Notify({
+         Title = "🟥 Failed!",
+         Content = "Cant teleport to saved position!",
+         Duration = 3,
+         Image = 4483362458,
+      })
+      end
+   end,
+})
+
+local Divider = misc:CreateDivider()
+local freezep = misc:CreateToggle({
+   Name = "❄ Freeze Player",
+   CurrentValue = false,
+   Flag = "freezep",
+   Callback = function(AfreezepV)
+         _G.freezep = AfreezepV
+         FreezePlayer()
+   end,
+})
+
 local Section = misc:CreateSection("🙍‍♂️ Player")
-local doxygen = ma:CreateToggle({
+local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
    CurrentValue = false,
    Flag = "doxygen",
@@ -352,6 +429,7 @@ local afixmap = treasure:CreateToggle({
    end,
 })
 
+local Divider = misc:CreateDivider()
 local afindchest = treasure:CreateToggle({
    Name = "🔎 Auto Find Chest",
    CurrentValue = false,
