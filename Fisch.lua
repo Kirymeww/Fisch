@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.24",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.25",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -64,17 +64,15 @@ local function AutoCast()
    end
 end
 
-local function getButton()
-    return game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("shakeui"):WaitForChild("safezone"):WaitForChild("button")
-end
-
 local function navigateAndClick()
-    local button = getButton()
+    local button = nil
+    repeat
+        button = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("shakeui"):WaitForChild("safezone"):FindFirstChild("button")
+        wait(0.1)
+    until button
     GuiService.SelectedObject = button
-    if GuiService.SelectedObject == button then
-        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game)
-        VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
-    end
+    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game)
+    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
 end
 
 local function AutoShake()
