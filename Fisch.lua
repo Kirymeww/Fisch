@@ -587,16 +587,3 @@ local theme = setting:CreateDropdown({
          end
    end,
 })
-
-local loadcfg = setting:CreateButton({
-   Name = "🔶 Load Config",
-   Callback = function()
-         Rayfield:LoadConfiguration()
-         Rayfield:Notify({
-         Title = "🟩 Success!",
-         Content = "Config Loaded!",
-         Duration = 3,
-         Image = 4483362458,
-      })
-   end,
-})
