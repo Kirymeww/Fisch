@@ -115,7 +115,7 @@ local tlocation = tp:CreateDropdown({
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "tlocation",
-   Callback = function(tlocationOptions)
+   Callback = function(Options)
          print(tlocationOptions)
    end,
 })
@@ -127,7 +127,7 @@ local ttotem = tp:CreateDropdown({
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "ttotem",
-   Callback = function(ttotemOptions)
+   Callback = function(Options)
          print(ttotemOptions)
    end,
 })
@@ -139,7 +139,7 @@ local tfishingRods = tp:CreateDropdown({
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "tfishingRods",
-   Callback = function(tfishingRodsOptions)
+   Callback = function(Options)
          print(tfishingRodsOptions)
    end,
 })
@@ -151,7 +151,7 @@ local titems = tp:CreateDropdown({
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "titems",
-   Callback = function(titemsOptions)
+   Callback = function(Options)
          print(titemsOptions)
    end,
 })
@@ -163,7 +163,7 @@ local tnpcs = tp:CreateDropdown({
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "tnpcs",
-   Callback = function(tnpcsOptions)
+   Callback = function(Options)
          print(tnpcsOptions)
    end,
 })
@@ -175,7 +175,7 @@ local tevents = tp:CreateDropdown({
    CurrentOption = {""},
    MultipleOptions = false,
    Flag = "tevents",
-   Callback = function(teventsOptions)
+   Callback = function(Options)
          print(teventsOptions)
    end,
 })
