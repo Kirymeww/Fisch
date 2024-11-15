@@ -1,12 +1,12 @@
---Import
+--Import Library
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
---Window
+--Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "Rayfield Example Window",
-   LoadingTitle = "Rayfield Interface Suite",
-   LoadingSubtitle = "by Sirius",
-   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+   Name = "[🏴‍☠️] Fisch",
+   LoadingTitle = "[🏴‍☠️] Fisch",
+   LoadingSubtitle = "by Kirymeww",
+   Theme = "Default",
 
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false,
@@ -16,13 +16,7 @@ local Window = Rayfield:CreateWindow({
       FolderName = "Fisch",
       FileName = "FischCfg"
    },
-
-   Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-
+      
    KeySystem = true, -- Set this to true to use our key system
    KeySettings = {
       Title = "Untitled",
@@ -43,6 +37,25 @@ Rayfield:Notify({
    Image = 4483362458,
 })
 
+--Functions
+local function AutoCast()
+   while _G.acast do
+      print(111)
+   end
+end
+
+local function AutoShake()
+   while _G.ashake do
+      print(222)
+   end
+end
+
+local function AutoReel()
+   while _G.areel do
+      print(333)
+   end
+end
+
 --Services
 
 
@@ -61,23 +74,26 @@ local tp = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
-   Callback = function(Value)
-            print(Value)
+   Callback = function(AcastV)
+         _G.acast = AcastV
+         AutoCast()
    end,
 })
 
 local ashake = ma:CreateToggle({
    Name = "🔀 Auto Shake",
    CurrentValue = false,
-   Callback = function(Value)
-            print(Value)
+   Callback = function(AshakeV)
+         _G.ashake = AshakeV
+         AutoShake()
    end,
 })
 
 local areel = ma:CreateToggle({
    Name = "🔃 Auto Reel",
    CurrentValue = false,
-   Callback = function(Value)
-            print(Value)
+   Callback = function(AreelV)
+         _G.areel = AreelV
+         AutoReel()
    end,
 })
