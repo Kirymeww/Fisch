@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.1",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.11",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -390,7 +390,6 @@ local doxygen = misc:CreateToggle({
    end,
 })
 
-local Divider = misc:CreateDivider()
 local pspeed = misc:CreateSlider({
    Name = "🏃‍♂️ Player Speed",
    Range = {16, 150},
@@ -403,7 +402,6 @@ local pspeed = misc:CreateSlider({
    end,
 })
 
-local Divider = misc:CreateDivider()
 local pjumpPower = misc:CreateSlider({
    Name = "🦘 Jump Power",
    Range = {50, 150},
@@ -416,7 +414,6 @@ local pjumpPower = misc:CreateSlider({
    end,
 })
 
-local Divider = misc:CreateDivider()
 local pfov = misc:CreateSlider({
    Name = "🔭 Field of View",
    Range = {70, 120},
@@ -441,7 +438,6 @@ local afixmap = treasure:CreateToggle({
    end,
 })
 
-local Divider = misc:CreateDivider()
 local afindchest = treasure:CreateToggle({
    Name = "🔎 Auto Find Chest",
    CurrentValue = false,
@@ -451,5 +447,3 @@ local afindchest = treasure:CreateToggle({
          AutoFindChest()
    end,
 })
-
-Rayfield:LoadConfiguration()
