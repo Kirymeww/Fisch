@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.22",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.23",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -80,7 +80,7 @@ end
 local function AutoShake()
     while _G.ashake do
         navigateAndClick()
-        wait(0.1)
+        wait(0.01)
     end
 end
 
@@ -162,12 +162,11 @@ end
 _G.acast = false
 _G.ashake = false
 _G.areel = false
-_G.aplacecrabcage = false
 _G.freezep = false
+_G.asell = false
 _G.afixmap = false
 _G.afindchest = false
-_G.asell = false
-_G.doxygen = false
+_G.aplacecrabcage = false
 
 _G.areelmode = nil
 _G.smerchant = nil
@@ -511,11 +510,15 @@ local freezep = misc:CreateToggle({
 local Section = misc:CreateSection("🙍‍♂️ Player")
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
-   CurrentValue = false,
+   CurrentValue = true,
    Flag = "doxygen",
    Callback = function(AdoxygenV)
-         _G.doxygen = AdoxygenV
-         AutoDisableOxygen()
+      for _, player in pairs(game.Players:GetPlayers()) do
+         local oxygen = player.Character and player.Character:FindFirstChild("client") and player.Character.client:FindFirstChild("oxygen")
+         if oxygen then
+            oxygen.Enabled = not AdoxygenV
+         end
+      end
    end,
 })
 
