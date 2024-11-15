@@ -16,7 +16,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "FischCfg"
    },
       
-   KeySystem = true,
+   KeySystem = false,
    KeySettings = {
       Title = "[🏴‍☠️] Fisch",
       Subtitle = "🔑 Key System",
@@ -54,6 +54,14 @@ end
 _G.acast = false
 _G.ashake = false
 _G.areel = false
+_G.aplacecrabcage = false
+_G.freezep = false
+_G.afixmap = false
+_G.afindchest = false
+
+_G.acastmode = nil
+_G.areelmode = nil
+
 
 --Tabs
 local ma = Window:CreateTab("🎣 Main", 4483362458) -- Title, Image
@@ -62,7 +70,25 @@ local appr = Window:CreateTab("🛒 Appraise", 4483362458) -- Title, Image
 local misc = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
 
 --Main
-local acasts = ma:CreateSection("🎣 Auto Cast")
+local fishingRods = {}
+for i, item in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+    if string.find(item.Name, "Rod") then
+        table.insert(fishingRods, item.Name)
+    end
+end
+
+local Section = ma:CreateSection("🎣 Auto Cast")
+local acastmode = ma:CreateDropdown({
+   Name = "🎣 Select Fishing Rod",
+   Options = fishingRods,
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "acastmode",
+   Callback = function(Options)
+         print(Options)
+   end,
+})
+
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
@@ -85,6 +111,17 @@ local ashake = ma:CreateToggle({
 })
 
 local Section = ma:CreateSection("🔃 Auto Reel")
+local areelmode = ma:CreateDropdown({
+   Name = "🎣 Select Reel Mode",
+   Options = {"🟩 Perfect Catch", "🟥 No Perfect Catch"},
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "acastmode",
+   Callback = function(Options)
+         print(Options)
+   end,
+})
+
 local areel = ma:CreateToggle({
    Name = "🔃 Auto Reel",
    CurrentValue = false,
