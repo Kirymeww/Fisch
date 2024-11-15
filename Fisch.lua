@@ -23,9 +23,9 @@ local Window = Rayfield:CreateWindow({
       Subtitle = "Key System",
       Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"key"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+      Key = {"kbs"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
 
@@ -71,9 +71,9 @@ _G.areel = false
 local ma = Window:CreateTab("🎣 Main", 4483362458) -- Title, Image
 local tp = Window:CreateTab("🌎 Teleport", 4483362458) -- Title, Image
 local appr = Window:CreateTab("🛒 Appraise", 4483362458) -- Title, Image
-local tp = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
+local misc = Window:CreateTab("🛠 Misc", 4483362458) -- Title, Image
 
---Toggles
+--Main
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
@@ -101,6 +101,113 @@ local areel = ma:CreateToggle({
    Callback = function(AreelV)
          _G.areel = AreelV
          AutoReel()
+   end,
+})
+
+--Teleport
+local tlocation = tp:CreateDropdown({
+   Name = "🗺 Select Location",
+   Options = {"1","2"},
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "tlocation",
+   Callback = function(tlocationOptions)
+         print(tlocationOptions)
+   end,
+})
+
+local ttotem = tp:CreateDropdown({
+   Name = "🪧 Select Totem",
+   Options = {"A","B"},
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "ttotem",
+   Callback = function(ttotemOptions)
+         print(ttotemOptions)
+   end,
+})
+
+local tfishingRods = tp:CreateDropdown({
+   Name = "🎣 Select Fishing Rod",
+   Options = {"Rod1","Rod2"},
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "tfishingRods",
+   Callback = function(tfishingRodsOptions)
+         print(tfishingRodsOptions)
+   end,
+})
+
+local titems = tp:CreateDropdown({
+   Name = "📦 Select Item",
+   Options = {"Item1","Item2"},
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "titems",
+   Callback = function(titemsOptions)
+         print(titemsOptions)
+   end,
+})
+
+local tnpcs = tp:CreateDropdown({
+   Name = "👤 Select NPC",
+   Options = {"NPC1","NPC2"},
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "tnpcs",
+   Callback = function(tnpcsOptions)
+         print(tnpcsOptions)
+   end,
+})
+
+local tevents = tp:CreateDropdown({
+   Name = "🎉 Select Event",
+   Options = {"Event1","Event2"},
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "tevents",
+   Callback = function(teventsOptions)
+         print(teventsOptions)
+   end,
+})
+
+--Appraise
+local csapp = appr:CreateLabel("👁 Coming soon...")
+
+--Misc
+local pspeed = misc:CreateSlider({
+   Name = "🏃‍♂️ Player Speed",
+   Range = {16, 150},
+   Increment = 10,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "pspeed", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(pseedValue)
+      print(pseedValue)
+   end,
+})
+
+local pjumpPower = misc:CreateSlider({
+   Name = "🦘 Jump Power",
+   Range = {50, 150},
+   Increment = 10,
+   Suffix = "Power",
+   CurrentValue = 50,
+   Flag = "pjumpPower",
+   Callback = function(pjumpPowerValue)
+      print(pjumpPowerValue)
+   end,
+})
+
+local pfov = misc:CreateSlider({
+   Name = "🔭 Field of View",
+   Range = {70, 120},
+   Increment = 5,
+   Suffix = "FOV",
+   CurrentValue = 70,
+   Flag = "pfov",
+   Callback = function(pfovValue)
+      print(pfovValue)
    end,
 })
 
