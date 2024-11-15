@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.21",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.22",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -26,6 +26,7 @@ local Window = Rayfield:CreateWindow({
 })
 
 --Services
+local GuiService = game:GetService("GuiService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 
 --Functions
@@ -63,18 +64,24 @@ local function AutoCast()
    end
 end
 
-local function AutoShake()
-   while _G.ashake do
-      local button = game.Players.LocalPlayer.PlayerGui.shakeui.safezone.button
+local function getButton()
+    return game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("shakeui"):WaitForChild("safezone"):WaitForChild("button")
+end
 
-      if button then
-         local buttonPosition = button.AbsolutePosition + button.AbsoluteSize / 2
-         VirtualInputManager:SendMouseMovement(buttonPosition.X, buttonPosition.Y)
-         VirtualInputManager:SendMouseButtonEvent(buttonPosition.X, buttonPosition.Y, Enum.UserInputType.MouseButton1, true, game, 0)
-         VirtualInputManager:SendMouseButtonEvent(buttonPosition.X, buttonPosition.Y, Enum.UserInputType.MouseButton1, false, game, 0)
-      end
-      wait(0.1)
-   end
+local function navigateAndClick()
+    local button = getButton()
+    GuiService.SelectedObject = button
+    if GuiService.SelectedObject == button then
+        VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game)
+        VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
+    end
+end
+
+local function AutoShake()
+    while _G.ashake do
+        navigateAndClick()
+        wait(0.1)
+    end
 end
 
 local function AutoReel()
