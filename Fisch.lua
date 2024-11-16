@@ -28,6 +28,7 @@ local Window = Rayfield:CreateWindow({
 --Services
 local GuiService = game:GetService("GuiService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
+local Players = game:GetService("Players")
 
 --Functions
 local function AutoCast()
@@ -65,20 +66,16 @@ local function AutoCast()
 end
 
 local function navigateAndClick()
-    local shakeui = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("shakeui")
+    local player = Players.LocalPlayer
+    local button = player.PlayerGui:FindFirstChild("shakeui") and player.PlayerGui.shakeui:FindFirstChild("safezone") and player.PlayerGui.shakeui.safezone:FindFirstChild("button")
     
-    if not shakeui then
-        repeat
-            shakeui = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("shakeui")
-            wait(0.01)
-        until shakeui
+    if button then
+        GuiService.SelectedObject = button
+        if GuiService.SelectedObject == button then
+            VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, nil)
+            VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, nil)
+        end
     end
-
-    local button = shakeui.safezone.button
-
-    GuiService.SelectedObject = button
-    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Return, false, game)
-    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Return, false, game)
 end
 
 local function AutoShake()
@@ -146,16 +143,6 @@ local function FreezePlayer()
       end
       wait(0.01)
    end
-end
-
-local function getFilteredItems()
-    local items = {}
-    for _, item in pairs(player.Inventory) do
-        if not item.Name:find("Rod") and item.Name ~= "Bestiary" and item.Name ~= "Equipment Bag" then
-            table.insert(items, item.Name)
-        end
-    end
-    return items
 end
 
 --Values
