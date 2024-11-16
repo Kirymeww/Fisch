@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.33",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.34",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -519,28 +519,6 @@ local savep = misc:CreateButton({
          Duration = 3,
          Image = 4483362458,
       })
-      end
-   end,
-})
-
-local resetp = misc:CreateButton({
-   Name = "🟥 Reset Position",
-   Callback = function()
-      if savedPosition then
-         savedPosition = nil
-         Rayfield:Notify({
-            Title = "🟩 Success!",
-            Content = "Position reset!",
-            Duration = 3,
-            Image = 4483362458,
-         })
-      else
-         Rayfield:Notify({
-            Title = "🟥 Failed!",
-            Content = "The position cannot be reset!",
-            Duration = 3,
-            Image = 4483362458,
-         })
       end
    end,
 })
