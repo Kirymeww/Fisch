@@ -3,8 +3,8 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.36",
-   LoadingTitle = "[🏴‍☠️] Fisch",
+   Name = "[🍄] Fisch | Version 0.0.37",
+   LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
    DisableRayfieldPrompts = false,
@@ -18,7 +18,7 @@ local Window = Rayfield:CreateWindow({
       
    KeySystem = false,
    KeySettings = {
-      Title = "[🏴‍☠️] Fisch",
+      Title = "[🍄] Fisch",
       Subtitle = "🔑 Key System",
       Note = "Password: KBS",
       Key = {"KBS"}
@@ -259,7 +259,6 @@ _G.pljump = 50
 --Tabs
 local ma = Window:CreateTab("🎣 Main", 4483362458)
 local tp = Window:CreateTab("🌎 Teleport", 4483362458)
-local appr = Window:CreateTab("🔎 Appraise", 4483362458)
 local treasure = Window:CreateTab("💎 Treasure", 4483362458)
 local misc = Window:CreateTab("🛠 Misc", 4483362458)
 local setting = Window:CreateTab("⚙ Settings", 4483362458)
@@ -364,7 +363,7 @@ local tlocation = tp:CreateDropdown({
       "🍄 Mushgrove Swamp", "🏝 Terrapin Island", "❄️ Snowcap Island",
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
-      "🌊 Brine Pool", "🌴 Earmark Isle", "🪸 Haddock Rock",
+      "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🪸 Haddock Rock",
       "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike"
    },
    CurrentOption = {""},
@@ -398,6 +397,8 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(-1000, -245, -2725)
          elseif selectedLocation == "🌌 Desolate Pocket" then
             teleportPlayer(-1500, -235, -2856)
+         elseif selectedLocation == "⛏ The Depths" then
+            teleportPlayer(502, -707, 1234)
          elseif selectedLocation == "🌊 Brine Pool" then
             teleportPlayer(-1800, -143, -3404)
          elseif selectedLocation == "🌴 Earmark Isle" then
@@ -452,7 +453,9 @@ local tfishingRods = tp:CreateDropdown({
       "🧲 Magnet Rod", 
       "🔱 Trident Rod",
       "🌌 Aurora Rod", 
-      "🌙 Nocturnal Rod"
+      "🌙 Nocturnal Rod",
+      "🏴‍☠️ Scurvy Rod",
+      "🈳 Rod Of The Depths"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -474,6 +477,10 @@ local tfishingRods = tp:CreateDropdown({
             teleportPlayer(-141, -512, 1145)
          elseif selectedRod == "🌙 Nocturnal Rod" then
             teleportPlayer(-141, -512, 1145)
+         elseif selectedRod == "🏴‍☠️ Scurvy Rod" then
+            teleportPlayer(-2825, 215, 1512)
+         elseif selectedRod == "🈳 Rod Of The Depths" then
+            teleportPlayer(1703, -903, 1443)
          end
    end,
 })
