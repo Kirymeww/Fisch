@@ -148,18 +148,14 @@ local function FreezePlayer()
    end
 end
 
-local function AutoPlaceGrabCage()
-   while _G.aplacecrabcage do
-      print(888)
-      wait(0.5)
-   end
-end
-
-local function AutoDisableOxygen()
-   while _G.doxygen do
-      print(999)
-      wait(0.5)
-   end
+local function getFilteredItems()
+    local items = {}
+    for _, item in pairs(player.Inventory) do
+        if not item.Name:find("Rod") and item.Name ~= "Bestiary" and item.Name ~= "Equipment Bag" then
+            table.insert(items, item.Name)
+        end
+    end
+    return items
 end
 
 --Values
@@ -170,10 +166,10 @@ _G.freezep = false
 _G.asell = false
 _G.afixmap = false
 _G.afindchest = false
-_G.aplacecrabcage = false
 
 _G.areelmode = nil
 _G.smerchant = nil
+_G.apprfish = nil
 
 
 --Tabs
@@ -427,8 +423,26 @@ local titems = tp:CreateDropdown({
 })
 
 --Appraise
-local Section = appr:CreateSection("👁")
-local csapp = appr:CreateLabel("👁 Coming soon...")
+local Section = appr:CreateSection("🔎 Appraise | BETA")
+local apprfish = appr:CreateDropdown({
+   Name = "🐟 Select Fish",
+   Options = getFilteredItems(),
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "apprfish",
+   Callback = function(Options)
+         local selectedItem = Options[1]
+         local itemName = selectedItem:match("%s*(%w+)")
+         _G.apprfish = itemName .. " Fish"
+   end,
+})
+
+local refrapprfish = appr:CreateButton({
+   Name = "🔁 Refresh Inventory",
+   Callback = function()
+      getFilteredItems()
+   end,
+})
 
 --Misc
 local Section = misc:CreateSection("📌 Position")
