@@ -556,7 +556,7 @@ local apprfishdrop = appr:CreateDropdown({
     end,
 })
 
-local apprfishgo = misc:CreateToggle({
+local apprfishgo = appr:CreateToggle({
    Name = "🔎 Appraise Fish",
    CurrentValue = true,
    Flag = "apprfishgo",
