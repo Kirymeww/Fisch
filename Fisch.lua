@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.30",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.31",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -145,15 +145,26 @@ end
 local function FreezePlayer()
    local player = game.Players.LocalPlayer
    local initialPosition = nil
+   local humanoid = nil
 
    while _G.freezep do
       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
          if not initialPosition then
             initialPosition = player.Character.HumanoidRootPart.Position
+            humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+               humanoid.WalkSpeed = 0
+               humanoid.JumpPower = 0
+            end
          end
          player.Character.HumanoidRootPart.CFrame = CFrame.new(initialPosition)
       end
       wait(0.01)
+   end
+
+   if humanoid then
+      humanoid.WalkSpeed = _G.plspeed
+      humanoid.JumpPower = _G.pljump
    end
 end
 
@@ -169,6 +180,9 @@ _G.afindchest = false
 
 _G.areelmode = nil
 _G.smerchant = nil
+
+_G.plspeed = 16
+_G.pljump = 50
 
 --Tabs
 local ma = Window:CreateTab("🎣 Main", 4483362458)
@@ -204,7 +218,7 @@ local Section = ma:CreateSection("🔃 Auto Reel")
 local areelmode = ma:CreateDropdown({
    Name = "🎣 Select Reel Mode",
    Options = {"🟩 Perfect Catch", "🟥 No Perfect Catch"},
-   CurrentOption = {""},
+   CurrentOption = {"🟩 Perfect Catch"},
    MultipleOptions = false,
    Flag = "acastmode",
    Callback = function(Options)
@@ -361,11 +375,9 @@ local tfishingRods = tp:CreateDropdown({
    Options = {
       "🎣 Basic Rods",
       "🎯 Long Rod",
-      "⚡ Rapid Rod", 
-      "⏳ Steady Rod", 
-      "🍀 Fortune Rod",
+      "⚡ Rapid & ⏳ Steady & 🍀 Fortune Rods", 
       "🧲 Magnet Rod", 
-      "⚔️ Trident Rod",
+      "🔱 Trident Rod",
       "🌌 Aurora Rod", 
       "🌙 Nocturnal Rod"
    },
@@ -379,15 +391,11 @@ local tfishingRods = tp:CreateDropdown({
             teleportPlayer(454, 151, 239)
          elseif selectedRod == "🎯 Long Rod" then
             teleportPlayer(486, 175, 151)
-         elseif selectedRod == "⚡ Rapid Rod" then
-            teleportPlayer(-1510, 142, 766)
-         elseif selectedRod == "⏳ Steady Rod" then
-            teleportPlayer(-1510, 142, 766)
-         elseif selectedRod == "🍀 Fortune Rod" then
+         elseif selectedRod == "⚡ Rapid & ⏳ Steady & 🍀 Fortune Rods" then
             teleportPlayer(-1510, 142, 766)
          elseif selectedRod == "🧲 Magnet Rod" then
             teleportPlayer(-200, 133, 1930)
-         elseif selectedRod == "⚔️ Trident Rod" then
+         elseif selectedRod == "🔱 Trident Rod" then
             teleportPlayer(-1484, -226, -2201)
          elseif selectedRod == "🌌 Aurora Rod" then
             teleportPlayer(-141, -512, 1145)
@@ -540,6 +548,7 @@ local pspeed = misc:CreateSlider({
       if player and player.Character then
          local humanoid = player.Character:WaitForChild("Humanoid")
          humanoid.WalkSpeed = pseedValue
+         _G.plspeed = pseedValue
       end
    end,
 })
@@ -556,6 +565,7 @@ local pjumpPower = misc:CreateSlider({
       if player and player.Character then
          local humanoid = player.Character:WaitForChild("Humanoid")
          humanoid.JumpPower = pjumpPowerValue
+         _G.pljump = pjumpPowerValue
       end
    end,
 })
