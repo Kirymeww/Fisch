@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.32",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.33",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -29,6 +29,7 @@ local Window = Rayfield:CreateWindow({
 local GuiService = game:GetService("GuiService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
 --Functions
 local function AutoCast()
@@ -81,7 +82,7 @@ end
 local function AutoShake()
     while _G.ashake do
         navigateAndClick()
-        game:GetService("RunService").RenderStepped:Wait()
+        RunService.Heartbeat:Wait()
     end
 end
 
