@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.35",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.36",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -115,37 +115,6 @@ local function AutoSell()
       end
       wait(0.2)
    end
-end
-
-local function AutoAppraiseFish()
-    while _G.aapprfish do
-        local player = game.Players.LocalPlayer
-        local character = player.Character
-        local selectedFish = _G.apprfishselect
-        
-        local holdingFish = false
-        if character and character:FindFirstChild("Humanoid") then
-            local humanoid = character.Humanoid
-            for _, tool in pairs(character:GetChildren()) do
-                if tool:IsA("Tool") and tool.Name == selectedFish then
-                    holdingFish = true
-                    break
-                end
-            end
-        end
-        
-        if not holdingFish then
-            local fish = player.Backpack:FindFirstChild(selectedFish)
-            if fish then
-                fish.Parent = character
-                fish:Activate()
-            end
-        end
-        
-        workspace.world.npcs.Appraiser.appraiser.appraise:InvokeServer()
-        
-        wait(1)
-    end
 end
 
 local function AutoSellInHand()
@@ -280,11 +249,9 @@ _G.asell = false
 _G.asellinhand = false
 _G.afixmap = false
 _G.afindchest = false
-_G.aapprfish = false
 
 _G.areelmode = nil
 _G.smerchant = nil
-_G.apprfishselect = nil
 
 _G.plspeed = 16
 _G.pljump = 50
@@ -540,29 +507,6 @@ local titems = tp:CreateDropdown({
          elseif selectedItem == "🦀 Crab Cage" then
             teleportPlayer(476, 151, 231)
          end
-   end,
-})
-
---Appraise
-local Section = appr:CreateSection("🔎 Appraise")
-local apprfishdrop = appr:CreateDropdown({
-    Name = "🐟 Select Fish",
-    Options = filterItems(),
-    CurrentOption = {},
-    MultipleOptions = false,
-    Flag = "apprfishdrop",
-    Callback = function(Options)
-        _G.apprfishselect = Options[1]
-    end,
-})
-
-local apprfishgo = appr:CreateToggle({
-   Name = "🔎 Appraise Fish",
-   CurrentValue = true,
-   Flag = "apprfishgo",
-   Callback = function(AapprfishV)
-         _G.aapprfish = AapprfishV
-         AutoAppraiseFish()
    end,
 })
 
