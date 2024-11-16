@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.27",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.28",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -169,13 +169,10 @@ _G.afindchest = false
 
 _G.areelmode = nil
 _G.smerchant = nil
-_G.apprfish = nil
-
 
 --Tabs
 local ma = Window:CreateTab("🎣 Main", 4483362458)
 local tp = Window:CreateTab("🌎 Teleport", 4483362458)
-local appr = Window:CreateTab("🔎 Appraise", 4483362458)
 local misc = Window:CreateTab("🛠 Misc", 4483362458)
 local treasure = Window:CreateTab("💎 Treasure", 4483362458)
 local setting = Window:CreateTab("⚙ Settings", 4483362458)
@@ -419,28 +416,6 @@ local titems = tp:CreateDropdown({
          elseif selectedItem == "🦀 Crab Cage" then
             teleportPlayer(476, 151, 231)
          end
-   end,
-})
-
---Appraise
-local Section = appr:CreateSection("🔎 Appraise | BETA")
-local apprfish = appr:CreateDropdown({
-   Name = "🐟 Select Fish",
-   Options = getFilteredItems(),
-   CurrentOption = {""},
-   MultipleOptions = false,
-   Flag = "apprfish",
-   Callback = function(Options)
-         local selectedItem = Options[1]
-         local itemName = selectedItem:match("%s*(%w+)")
-         _G.apprfish = itemName .. " Fish"
-   end,
-})
-
-local refrapprfish = appr:CreateButton({
-   Name = "🔁 Refresh Inventory",
-   Callback = function()
-      getFilteredItems()
    end,
 })
 
