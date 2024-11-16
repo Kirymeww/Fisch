@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.28",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.29",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -81,7 +81,7 @@ end
 local function AutoShake()
     while _G.ashake do
         navigateAndClick()
-        wait(0.01)
+        game:GetService("RunService").RenderStepped:Wait()
     end
 end
 
@@ -493,7 +493,7 @@ local freezep = misc:CreateToggle({
 local Section = misc:CreateSection("🙍‍♂️ Player")
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
-   AdoxygenV = true,
+   CurrentOption = true,
    Flag = "doxygen",
    Callback = function(AdoxygenV)
       for _, player in pairs(game.Players:GetPlayers()) do
