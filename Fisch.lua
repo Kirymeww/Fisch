@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.37",
+   Name = "[🍄] Fisch | Version 0.0.38",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -20,8 +20,8 @@ local Window = Rayfield:CreateWindow({
    KeySettings = {
       Title = "[🍄] Fisch",
       Subtitle = "🔑 Key System",
-      Note = "Password: KBS",
-      Key = {"KBS"}
+      Note = "Password: Depths",
+      Key = {"Depths"}
    }
 })
 
@@ -129,77 +129,6 @@ local function AutoSellInHand()
    end
 end
 
-local function AutoFixMap()
-   local player = game.Players.LocalPlayer
-   local backpack = player:FindFirstChild("Backpack")
-   local repairedMaps = {}
-
-   while _G.afixmap do
-      if backpack then
-         for _, item in ipairs(backpack:GetChildren()) do
-            if item.Name == "Treasure Map" and not repairedMaps[item] then
-               teleportPlayer(-2822, 214, 1522)
-               wait(1)
-               
-               if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                  local humanoidRootPart = player.Character.HumanoidRootPart
-                  
-                  if player.Character:FindFirstChild("Treasure Map") then
-                     workspace.world.npcs:FindFirstChild("Jack Marrow").treasure.repairmap:InvokeServer()
-                     repairedMaps[item] = true
-                  else
-                     local tool = backpack:FindFirstChild("Treasure Map")
-                     if tool then
-                        player.Character.Humanoid:EquipTool(tool)
-                        workspace.world.npcs:FindFirstChild("Jack Marrow").treasure.repairmap:InvokeServer()
-                        repairedMaps[item] = true
-                     end
-                  end
-               end
-            end
-         end
-      end
-      wait(0.2)
-   end
-end
-
-local function AutoFindChest()
-   local player = game.Players.LocalPlayer
-   local initialPosition = nil
-   local openedChests = {}
-
-   while _G.afindchest do
-      if workspace.world:FindFirstChild("chests") then
-         for _, chest in ipairs(workspace.world.chests:GetChildren()) do
-            if chest:IsA("Part") and string.match(chest.Name, "TreasureChest_%-?%d+_%-?%d+_%-?%d+") and not openedChests[chest] then
-               local x, y, z = chest.Name:match("TreasureChest_(%-?%d+)_(%-?%d+)_(%-?%d+)")
-               if x and y and z then
-                  x, y, z = tonumber(x), tonumber(y), tonumber(z)
-                  initialPosition = player.Character.HumanoidRootPart.Position
-                  teleportPlayer(x, y, z)
-                  wait(1)
-
-                  local args = {
-                     [1] = {
-                        ["x"] = x,
-                        ["y"] = y,
-                        ["z"] = z
-                     }
-                  }
-                  game:GetService("ReplicatedStorage").events.open_treasure:FireServer(unpack(args))
-                  openedChests[chest] = true
-               end
-            end
-         end
-      end
-      wait(0.5)
-   end
-
-   if initialPosition then
-      teleportPlayer(initialPosition.X, initialPosition.Y, initialPosition.Z)
-   end
-end
-
 local function FreezePlayer()
    local player = game.Players.LocalPlayer
    local initialPosition = nil
@@ -226,20 +155,6 @@ local function FreezePlayer()
    end
 end
 
-local function filterItems()
-    local player = game.Players.LocalPlayer
-    local inventory = player.Backpack:GetChildren()
-    local filteredItems = {}
-    for _, item in ipairs(inventory) do
-        if not string.find(item.Name, "Rod") and 
-           not string.find(item.Name, "Bestiary") and 
-           not string.find(item.Name, "Equipment Bag") then
-            table.insert(filteredItems, item.Name)
-        end
-    end
-    return filteredItems
-end
-
 --Values
 _G.acast = false
 _G.ashake = false
@@ -259,7 +174,6 @@ _G.pljump = 50
 --Tabs
 local ma = Window:CreateTab("🎣 Main", 4483362458)
 local tp = Window:CreateTab("🌎 Teleport", 4483362458)
-local treasure = Window:CreateTab("💎 Treasure", 4483362458)
 local misc = Window:CreateTab("🛠 Misc", 4483362458)
 local setting = Window:CreateTab("⚙ Settings", 4483362458)
 
@@ -641,28 +555,6 @@ local pfov = misc:CreateSlider({
          local camera = game:GetService("Workspace").CurrentCamera
          camera.FieldOfView = pfovValue
       end
-   end,
-})
-
---Treasure
-local Section = treasure:CreateSection("💎 Treasure")
-local afixmap = treasure:CreateToggle({
-   Name = "🔨 Auto Fix Map",
-   CurrentValue = false,
-   Flag = "afixmap",
-   Callback = function(AfixmapV)
-         _G.afixmap = AfixmapV
-         AutoFixMap()
-   end,
-})
-
-local afindchest = treasure:CreateToggle({
-   Name = "🔎 Auto Find Chest",
-   CurrentValue = false,
-   Flag = "afindchest",
-   Callback = function(AfindchestV)
-         _G.afindchest = AfindchestV
-         AutoFindChest()
    end,
 })
 
