@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.29",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.30",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -100,7 +100,7 @@ local function AutoReel()
          }
       end
       game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
-      wait(0.5)
+      wait(0.2)
    end
 end
 
@@ -112,7 +112,19 @@ local function AutoSell()
             merchant.merchant.sellall:InvokeServer()
          end
       end
-      wait(0.5)
+      wait(0.2)
+   end
+end
+
+local function AutoSellInHand()
+   while _G.asellinhand do
+      if _G.smerchant then
+         local merchant = workspace.world.npcs:FindFirstChild(_G.smerchant)
+         if merchant then
+            merchant.merchant.sell:InvokeServer()
+         end
+      end
+      wait(0.2)
    end
 end
 
@@ -151,6 +163,7 @@ _G.ashake = false
 _G.areel = false
 _G.freezep = false
 _G.asell = false
+_G.asellinhand = false
 _G.afixmap = false
 _G.afindchest = false
 
@@ -233,6 +246,16 @@ local asell = ma:CreateToggle({
    Callback = function(AsellV)
          _G.asell = AsellV
          AutoSell()
+   end,
+})
+
+local asellinhand = ma:CreateToggle({
+   Name = "💰 Auto Sell In Hand",
+   CurrentValue = false,
+   Flag = "asellinhand",
+   Callback = function(AsellihV)
+         _G.asellinhand = AsellihV
+         AutoSellInHand()
    end,
 })
 
