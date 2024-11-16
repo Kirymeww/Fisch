@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.31",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.32",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -129,16 +129,73 @@ local function AutoSellInHand()
 end
 
 local function AutoFixMap()
+   local player = game.Players.LocalPlayer
+   local backpack = player:FindFirstChild("Backpack")
+   local repairedMaps = {}
+
    while _G.afixmap do
-      print(555)
-      wait(0.5)
+      if backpack then
+         for _, item in ipairs(backpack:GetChildren()) do
+            if item.Name == "Treasure Map" and not repairedMaps[item] then
+               teleportPlayer(-2822, 214, 1522)
+               wait(1)
+               
+               if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                  local humanoidRootPart = player.Character.HumanoidRootPart
+                  
+                  if player.Character:FindFirstChild("Treasure Map") then
+                     workspace.world.npcs:FindFirstChild("Jack Marrow").treasure.repairmap:InvokeServer()
+                     repairedMaps[item] = true
+                  else
+                     local tool = backpack:FindFirstChild("Treasure Map")
+                     if tool then
+                        player.Character.Humanoid:EquipTool(tool)
+                        workspace.world.npcs:FindFirstChild("Jack Marrow").treasure.repairmap:InvokeServer()
+                        repairedMaps[item] = true
+                     end
+                  end
+               end
+            end
+         end
+      end
+      wait(0.2)
    end
 end
 
 local function AutoFindChest()
+   local player = game.Players.LocalPlayer
+   local initialPosition = nil
+   local openedChests = {}
+
    while _G.afindchest do
-      print(666)
+      if workspace.world:FindFirstChild("chests") then
+         for _, chest in ipairs(workspace.world.chests:GetChildren()) do
+            if chest:IsA("Part") and string.match(chest.Name, "TreasureChest_%-?%d+_%-?%d+_%-?%d+") and not openedChests[chest] then
+               local x, y, z = chest.Name:match("TreasureChest_(%-?%d+)_(%-?%d+)_(%-?%d+)")
+               if x and y and z then
+                  x, y, z = tonumber(x), tonumber(y), tonumber(z)
+                  initialPosition = player.Character.HumanoidRootPart.Position
+                  teleportPlayer(x, y, z)
+                  wait(1)
+
+                  local args = {
+                     [1] = {
+                        ["x"] = x,
+                        ["y"] = y,
+                        ["z"] = z
+                     }
+                  }
+                  game:GetService("ReplicatedStorage").events.open_treasure:FireServer(unpack(args))
+                  openedChests[chest] = true
+               end
+            end
+         end
+      end
       wait(0.5)
+   end
+
+   if initialPosition then
+      teleportPlayer(initialPosition.X, initialPosition.Y, initialPosition.Z)
    end
 end
 
@@ -524,7 +581,7 @@ local freezep = misc:CreateToggle({
 local Section = misc:CreateSection("🙍‍♂️ Player")
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
-   CurrentOption = true,
+   CurrentValue = true,
    Flag = "doxygen",
    Callback = function(AdoxygenV)
       for _, player in pairs(game.Players:GetPlayers()) do
