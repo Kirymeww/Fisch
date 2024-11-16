@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🏴‍☠️] Fisch | Version 0.0.34",
+   Name = "[🏴‍☠️] Fisch | Version 0.0.35",
    LoadingTitle = "[🏴‍☠️] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -117,6 +117,37 @@ local function AutoSell()
    end
 end
 
+local function AutoAppraiseFish()
+    while _G.aapprfish do
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        local selectedFish = _G.apprfishselect
+        
+        local holdingFish = false
+        if character and character:FindFirstChild("Humanoid") then
+            local humanoid = character.Humanoid
+            for _, tool in pairs(character:GetChildren()) do
+                if tool:IsA("Tool") and tool.Name == selectedFish then
+                    holdingFish = true
+                    break
+                end
+            end
+        end
+        
+        if not holdingFish then
+            local fish = player.Backpack:FindFirstChild(selectedFish)
+            if fish then
+                fish.Parent = character
+                fish:Activate()
+            end
+        end
+        
+        workspace.world.npcs.Appraiser.appraiser.appraise:InvokeServer()
+        
+        wait(1)
+    end
+end
+
 local function AutoSellInHand()
    while _G.asellinhand do
       if _G.smerchant then
@@ -226,6 +257,20 @@ local function FreezePlayer()
    end
 end
 
+local function filterItems()
+    local player = game.Players.LocalPlayer
+    local inventory = player.Backpack:GetChildren()
+    local filteredItems = {}
+    for _, item in ipairs(inventory) do
+        if not string.find(item.Name, "Rod") and 
+           not string.find(item.Name, "Bestiary") and 
+           not string.find(item.Name, "Equipment Bag") then
+            table.insert(filteredItems, item.Name)
+        end
+    end
+    return filteredItems
+end
+
 --Values
 _G.acast = false
 _G.ashake = false
@@ -235,9 +280,11 @@ _G.asell = false
 _G.asellinhand = false
 _G.afixmap = false
 _G.afindchest = false
+_G.aapprfish = false
 
 _G.areelmode = nil
 _G.smerchant = nil
+_G.apprfishselect = nil
 
 _G.plspeed = 16
 _G.pljump = 50
@@ -245,8 +292,9 @@ _G.pljump = 50
 --Tabs
 local ma = Window:CreateTab("🎣 Main", 4483362458)
 local tp = Window:CreateTab("🌎 Teleport", 4483362458)
-local misc = Window:CreateTab("🛠 Misc", 4483362458)
+local appr = Window:CreateTab("🔎 Appraise", 4483362458)
 local treasure = Window:CreateTab("💎 Treasure", 4483362458)
+local misc = Window:CreateTab("🛠 Misc", 4483362458)
 local setting = Window:CreateTab("⚙ Settings", 4483362458)
 
 --Main
@@ -492,6 +540,29 @@ local titems = tp:CreateDropdown({
          elseif selectedItem == "🦀 Crab Cage" then
             teleportPlayer(476, 151, 231)
          end
+   end,
+})
+
+--Appraise
+local Section = appr:CreateSection("🔎 Appraise")
+local apprfishdrop = appr:CreateDropdown({
+    Name = "🐟 Select Fish",
+    Options = filterItems(),
+    CurrentOption = {},
+    MultipleOptions = false,
+    Flag = "apprfishdrop",
+    Callback = function(Options)
+        _G.apprfishselect = Options[1]
+    end,
+})
+
+local apprfishgo = misc:CreateToggle({
+   Name = "🔎 Appraise Fish",
+   CurrentValue = true,
+   Flag = "apprfishgo",
+   Callback = function(AapprfishV)
+         _G.aapprfish = AapprfishV
+         AutoAppraiseFish()
    end,
 })
 
