@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.38",
+   Name = "[🍄] Fisch | Version 0.0.39",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -82,7 +82,7 @@ end
 local function AutoShake()
     while _G.ashake do
         navigateAndClick()
-        RunService.Heartbeat:Wait()
+        wait(0.01)
     end
 end
 
@@ -113,7 +113,7 @@ local function AutoSell()
             merchant.merchant.sellall:InvokeServer()
          end
       end
-      wait(0.2)
+      wait(0.1)
    end
 end
 
@@ -131,20 +131,20 @@ end
 
 local function FreezePlayer()
    local player = game.Players.LocalPlayer
-   local initialPosition = nil
+   local initialCFrame = nil
    local humanoid = nil
 
    while _G.freezep do
       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-         if not initialPosition then
-            initialPosition = player.Character.HumanoidRootPart.Position
+         if not initialCFrame then
+            initialCFrame = player.Character.HumanoidRootPart.CFrame
             humanoid = player.Character:FindFirstChildOfClass("Humanoid")
             if humanoid then
                humanoid.WalkSpeed = 0
                humanoid.JumpPower = 0
             end
          end
-         player.Character.HumanoidRootPart.CFrame = CFrame.new(initialPosition)
+         player.Character.HumanoidRootPart.CFrame = initialCFrame
       end
       wait(0.01)
    end
@@ -152,6 +152,36 @@ local function FreezePlayer()
    if humanoid then
       humanoid.WalkSpeed = _G.plspeed
       humanoid.JumpPower = _G.pljump
+   end
+end
+
+local function EspIsonada()
+   local isonade = workspace:FindFirstChild("zones")
+   if isonade and isonade:FindFirstChild("fishing") and isonade.fishing:FindFirstChild("Isonade") then
+      local billboardGui = Instance.new("BillboardGui")
+      local textLabel = Instance.new("TextLabel")
+
+      billboardGui.Adornee = isonade.fishing.Isonade
+      billboardGui.Size = UDim2.new(0, 200, 0, 50)
+      billboardGui.StudsOffset = Vector3.new(0, 5, 0)
+      billboardGui.AlwaysOnTop = true
+
+      textLabel.Parent = billboardGui
+      textLabel.Size = UDim2.new(1, 0, 1, 0)
+      textLabel.BackgroundTransparency = 1
+      textLabel.Text = "Isonade Found!"
+      textLabel.TextColor3 = Color3.new(1, 0, 0)
+      textLabel.TextScaled = true
+
+      billboardGui.Parent = workspace
+   end
+end
+
+local function DelEspIsonada()
+   for _, gui in pairs(workspace:GetChildren()) do
+      if gui:IsA("BillboardGui") and gui:FindFirstChild("TextLabel") and gui.TextLabel.Text == "Isonade Found!" then
+         gui:Destroy()
+      end
    end
 end
 
@@ -490,6 +520,20 @@ local freezep = misc:CreateToggle({
    Callback = function(AfreezepV)
          _G.freezep = AfreezepV
          FreezePlayer()
+   end,
+})
+
+local Section = misc:CreateSection("👁 Visual")
+local espisonadat = misc:CreateToggle({
+   Name = "👁 Esp Isonada",
+   CurrentValue = false,
+   Flag = "espisonadat",
+   Callback = function(espisonadaV)
+         if espisonadaV then
+            EspIsonada()
+         else
+            DelEspIsonada()
+         end
    end,
 })
 
