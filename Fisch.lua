@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.40_1",
+   Name = "[🍄] Fisch | Version 0.0.41",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
