@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.46",
+   Name = "[🍄] Fisch | Version 0.0.47",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -102,7 +102,7 @@ local function AutoReel()
     while _G.areel do
         if _G.areelmode then
             NormalReelGui()
-            wait(0.01)
+            args = {}
         else
             args = {
                 [1] = 100,
@@ -110,7 +110,9 @@ local function AutoReel()
             }
         end
 
-        game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
+        if #args > 0 then
+            game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
+        end
         wait(0.2)
     end
 end
