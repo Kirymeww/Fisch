@@ -1,9 +1,10 @@
+
 --Load library
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.51",
+   Name = "[🍄] Fisch | Version 0.0.50",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -24,6 +25,24 @@ local Window = Rayfield:CreateWindow({
       Key = {"Depths"}
    }
 })
+
+--Values
+_G.acast = false
+_G.ashake = false
+_G.areel = false
+_G.freezep = false
+_G.asell = false
+_G.asellinhand = false
+_G.afixmap = false
+_G.afindchest = false
+
+_G.areelmode = nil
+_G.smerchant = nil
+
+_G.plspeed = 16
+_G.pljump = 50
+
+_G.espisonade = false
 
 --Services
 local GuiService = game:GetService("GuiService")
@@ -167,12 +186,12 @@ local function FreezePlayer()
    end
 end
 
-local function EspIsonada()
+local function Espisonade()
    local player = game.Players.LocalPlayer
    local notifiedIsonades = {}
    local isonades = workspace:FindFirstChild("zones")
 
-   while _G.espisonada do
+   while _G.espisonade do
       if isonades and isonades:FindFirstChild("fishing") then
          for _, isonade in pairs(isonades.fishing:GetChildren()) do
             if isonade.Name == "Isonade" and not isonade:FindFirstChild("BillboardGui") then
@@ -209,7 +228,7 @@ local function EspIsonada()
    end
 end
 
-local function DelEspIsonada()
+local function DelEspisonade()
    for _, isonade in pairs(workspace:FindFirstChild("zones").fishing:GetChildren()) do
       if isonade:FindFirstChild("BillboardGui") then
          isonade.BillboardGui:Destroy()
@@ -225,24 +244,6 @@ function teleportPlayer(x, y, z)
         humanoidRootPart.CFrame = CFrame.new(x, y, z)
     end
 end
-
---Values
-_G.acast = false
-_G.ashake = false
-_G.areel = false
-_G.freezep = false
-_G.asell = false
-_G.asellinhand = false
-_G.afixmap = false
-_G.afindchest = false
-
-_G.areelmode = nil
-_G.smerchant = nil
-
-_G.plspeed = 16
-_G.pljump = 50
-
-_G.espisonada = false
 
 --Tabs
 local ma = Window:CreateTab("🎣 Main", "fish")
@@ -484,7 +485,7 @@ local titems = tp:CreateDropdown({
       "🤿 Diving Gear", 
       "🐟 Bait Crate",
       "🦈 Quality Bait Crate", 
-      "🦀 Crab Cage"
+      "🦀 Crab Cage",
       "🈳 Tidebreaker",
       "⚓ Coral Geode",
       "👣 Flippers",
@@ -527,7 +528,6 @@ local titems = tp:CreateDropdown({
 local Section = misc:CreateSection("📌 Position")
 
 local savedPosition = nil
-
 local savep = misc:CreateButton({
    Name = "🟩 Save Position",
    Callback = function()
@@ -586,16 +586,16 @@ local freezep = misc:CreateToggle({
 })
 
 local Section = misc:CreateSection("👁 Visual")
-local espisonadat = misc:CreateToggle({
-   Name = "👁 Esp Isonada",
+local espisonadet = misc:CreateToggle({
+   Name = "👁 Esp Isonade",
    CurrentValue = false,
-   Flag = "espisonadat",
-   Callback = function(espisonadaV)
-         _G.espisonada = espisonadaV
-         if _G.espisonada then
-            EspIsonada()
+   Flag = "espisonadet",
+   Callback = function(espisonadeV)
+         _G.espisonade = espisonadeV
+         if _G.espisonade then
+            Espisonade()
          else
-            DelEspIsonada()
+            DelEspisonade()
          end
    end,
 })
@@ -668,7 +668,7 @@ local pfov = misc:CreateSlider({
 
 --Settings
 local Section = setting:CreateSection("⚙ Settings")
-local theme = setting:CreateDropdown({
+local themes = setting:CreateDropdown({
    Name = "🎨 Select Theme",
    Options = {
       "🌟 Default", 
