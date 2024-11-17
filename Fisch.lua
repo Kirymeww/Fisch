@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.49",
+   Name = "[🍄] Fisch | Version 0.0.50",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -55,7 +55,7 @@ local function AutoCast()
             end
 
             local screenSize = game:GetService("Workspace").CurrentCamera.ViewportSize
-            local centerPos = Vector2.new(screenSize.X / 2, screenSize.Y / 2)
+            local centerPos = Vector2.new(math.floor(screenSize.X / 2), math.floor(screenSize.Y / 2))
 
             VirtualInputManager:SendMouseButtonEvent(centerPos.X, centerPos.Y, Enum.UserInputType.MouseButton1, true, game, 1)
             wait(2)
@@ -88,13 +88,13 @@ local function AutoShake()
 end
 
 local function NormalReelGui()
+    _G.castactive = false
     local player = Players.LocalPlayer
     local playerbar = player.PlayerGui:FindFirstChild("reel") and player.PlayerGui.reel:FindFirstChild("bar") and player.PlayerGui.reel.bar:FindFirstChild("playerbar")
     
     if playerbar then
         playerbar.Position = UDim2.new(0.5, 0, 0.5, 0)
         playerbar.Size = UDim2.new(1, 0, 1.3, 0)
-        _G.castactive = false
     end
 end
 
@@ -113,8 +113,8 @@ local function AutoReel()
         end
 
         if #args > 0 then
-            game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
             _G.castactive = false
+            game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
         end
         wait(0.2)
     end
