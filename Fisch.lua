@@ -276,7 +276,7 @@ local areelmode = ma:CreateDropdown({
    Options = {"🟩 Normal", "🟨 Instant"},
    CurrentOption = {"🟩 Normal"},
    MultipleOptions = false,
-   Flag = "acastmode",
+   Flag = "areelmode",
    Callback = function(Options)
       if Options[1] == "🟩 Normal" then
          _G.areelmode = true
