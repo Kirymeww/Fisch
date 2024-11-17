@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.40",
+   Name = "[🍄] Fisch | Version 0.0.40_1",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -156,44 +156,48 @@ local function FreezePlayer()
 end
 
 local function EspIsonada()
-   local isonades = workspace:FindFirstChild("zones")
    local player = game.Players.LocalPlayer
 
-   if isonades and isonades:FindFirstChild("fishing") then
-      for _, isonade in pairs(isonades.fishing:GetChildren()) do
-         if isonade.Name == "Isonade" then
-            local billboardGui = Instance.new("BillboardGui")
-            local textLabel = Instance.new("TextLabel")
+   while _G.espisonada do
+      local isonades = workspace:FindFirstChild("zones")
 
-            billboardGui.Adornee = isonade
-            billboardGui.Size = UDim2.new(0, 150, 0, 40)
-            billboardGui.StudsOffset = Vector3.new(0, 5, 0)
-            billboardGui.AlwaysOnTop = true
+      if isonades and isonades:FindFirstChild("fishing") then
+         for _, isonade in pairs(isonades.fishing:GetChildren()) do
+            if isonade.Name == "Isonade" and not isonade:FindFirstChild("BillboardGui") then
+               local billboardGui = Instance.new("BillboardGui")
+               local textLabel = Instance.new("TextLabel")
 
-            textLabel.Parent = billboardGui
-            textLabel.Size = UDim2.new(1, 0, 1, 0)
-            textLabel.BackgroundTransparency = 1
-            textLabel.TextColor3 = Color3.fromRGB(200, 100, 150)
-            textLabel.TextScaled = true
-            textLabel.Font = Enum.Font.FredokaOne
+               billboardGui.Adornee = isonade
+               billboardGui.Size = UDim2.new(0, 150, 0, 40)
+               billboardGui.StudsOffset = Vector3.new(0, 5, 0)
+               billboardGui.AlwaysOnTop = true
 
-            game:GetService("RunService").RenderStepped:Connect(function()
-               if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                  local distance = (player.Character.HumanoidRootPart.Position - isonade.Position).magnitude
-                  textLabel.Text = string.format("Isonade | %.0f Studs", distance)
-               end
-            end)
+               textLabel.Parent = billboardGui
+               textLabel.Size = UDim2.new(1, 0, 1, 0)
+               textLabel.BackgroundTransparency = 1
+               textLabel.TextColor3 = Color3.fromRGB(200, 100, 150) -- pastel color
+               textLabel.TextScaled = true
+               textLabel.Font = Enum.Font.FredokaOne -- nice font choice
 
-            billboardGui.Parent = workspace
+               game:GetService("RunService").RenderStepped:Connect(function()
+                  if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                     local distance = (player.Character.HumanoidRootPart.Position - isonade.Position).magnitude
+                     textLabel.Text = string.format("Isonade | %.0f Studs", distance)
+                  end
+               end)
+
+               billboardGui.Parent = isonade
+            end
          end
       end
+      wait(1)
    end
 end
 
 local function DelEspIsonada()
-   for _, gui in pairs(workspace:GetChildren()) do
-      if gui:IsA("BillboardGui") and gui:FindFirstChild("TextLabel") and gui.TextLabel.Text:match("Isonade | ") then
-         gui:Destroy()
+   for _, isonade in pairs(workspace:FindFirstChild("zones").fishing:GetChildren()) do
+      if isonade:FindFirstChild("BillboardGui") then
+         isonade.BillboardGui:Destroy()
       end
    end
 end
@@ -213,6 +217,8 @@ _G.smerchant = nil
 
 _G.plspeed = 16
 _G.pljump = 50
+
+_G.espisonada = false
 
 --Tabs
 local ma = Window:CreateTab("🎣 Main", 4483362458)
@@ -543,6 +549,7 @@ local espisonadat = misc:CreateToggle({
    Flag = "espisonadat",
    Callback = function(espisonadaV)
          if espisonadaV then
+            _G.espisonada = espisonadaV
             EspIsonada()
          else
             DelEspIsonada()
