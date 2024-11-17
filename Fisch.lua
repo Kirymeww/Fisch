@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55",
+   Name = "[🍄] Fisch | Version 0.0.56",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -34,7 +34,7 @@ local RunService = game:GetService("RunService")
 --Functions
 local function AutoCast()
    while _G.acast do
-      if not _G.castactive then
+      if _G.castactive == false then
          local rod = nil
          local player = Players.LocalPlayer
 
@@ -90,11 +90,11 @@ local function AutoShake()
 end
 
 local function NormalReelGui()
-    _G.castactive = false
     local player = Players.LocalPlayer
     local playerbar = player.PlayerGui:FindFirstChild("reel") and player.PlayerGui.reel:FindFirstChild("bar") and player.PlayerGui.reel.bar:FindFirstChild("playerbar")
     
     if playerbar then
+        _G.castactive = false
         playerbar.Position = UDim2.new(0.5, 0, 0.5, 0)
         playerbar.Size = UDim2.new(1, 0, 1.3, 0)
     end
