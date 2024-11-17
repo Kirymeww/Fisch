@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.41",
+   Name = "[🍄] Fisch | Version 0.0.42",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -157,6 +157,7 @@ end
 
 local function EspIsonada()
    local player = game.Players.LocalPlayer
+   local notifiedIsonades = {}
 
    while _G.espisonada do
       local isonades = workspace:FindFirstChild("zones")
@@ -181,12 +182,21 @@ local function EspIsonada()
 
                game:GetService("RunService").RenderStepped:Connect(function()
                   if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                     local distance = (player.Character.HumanoidRootPart.Position - isonade.Position).magnitude
-                     textLabel.Text = string.format("Isonade | %.0f Studs", distance)
+                     textLabel.Text = "Isonade"
                   end
                end)
 
                billboardGui.Parent = isonade
+
+               if not notifiedIsonades[isonade] then
+                  Rayfield:Notify({
+                     Title = "🚩 Event!",
+                     Content = "Isonade zone has spawned!",
+                     Duration = 3,
+                     Image = 4483362458,
+                  })
+                  notifiedIsonades[isonade] = true
+               end
             end
          end
       end
