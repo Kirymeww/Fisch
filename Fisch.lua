@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.45",
+   Name = "[🍄] Fisch | Version 0.0.46",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -270,7 +270,11 @@ local areelmode = ma:CreateDropdown({
    MultipleOptions = false,
    Flag = "acastmode",
    Callback = function(Options)
-         _G.areelmode = (Options == "🟩 Normal")
+      if Options[1] == "🟩 Normal" then
+         _G.areelmode = true
+      else
+         _G.areelmode = false
+      end
    end,
 })
 
