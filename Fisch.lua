@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.47",
+   Name = "[🍄] Fisch | Version 0.0.48",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -92,7 +92,7 @@ local function NormalReelGui()
     
     if playerbar then
         playerbar.Position = UDim2.new(0.5, 0, 0.5, 0)
-        playerbar.Size = UDim2.new(1, 0, 0, 0)
+        playerbar.Size = UDim2.new(1, 0, 1.3, 0)
     end
 end
 
