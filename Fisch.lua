@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.42",
+   Name = "[🍄] Fisch | Version 0.0.43",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -176,9 +176,10 @@ local function EspIsonada()
                textLabel.Parent = billboardGui
                textLabel.Size = UDim2.new(1, 0, 1, 0)
                textLabel.BackgroundTransparency = 1
-               textLabel.TextColor3 = Color3.fromRGB(200, 100, 150) -- pastel color
-               textLabel.TextScaled = true
-               textLabel.Font = Enum.Font.FredokaOne -- nice font choice
+               textLabel.TextColor3 = Color3.fromRGB(200, 100, 150)
+               textLabel.TextScaled = false
+               textLabel.TextSize = 14
+               textLabel.Font = Enum.Font.FredokaOne
 
                game:GetService("RunService").RenderStepped:Connect(function()
                   if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
@@ -190,8 +191,8 @@ local function EspIsonada()
 
                if not notifiedIsonades[isonade] then
                   Rayfield:Notify({
-                     Title = "🚩 Event!",
-                     Content = "Isonade zone has spawned!",
+                     Title = "🟩 Success!",
+                     Content = "Isonade has appeared!",
                      Duration = 3,
                      Image = 4483362458,
                   })
@@ -558,8 +559,8 @@ local espisonadat = misc:CreateToggle({
    CurrentValue = false,
    Flag = "espisonadat",
    Callback = function(espisonadaV)
-         if espisonadaV then
-            _G.espisonada = espisonadaV
+         _G.espisonada = espisonadaV
+         if _G.espisonada then
             EspIsonada()
          else
             DelEspIsonada()
@@ -570,7 +571,7 @@ local espisonadat = misc:CreateToggle({
 local Section = misc:CreateSection("🙍‍♂️ Player")
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
-   CurrentValue = true,
+   CurrentValue = false,
    Flag = "doxygen",
    Callback = function(AdoxygenV)
       for _, player in pairs(game.Players:GetPlayers()) do
@@ -581,6 +582,7 @@ local doxygen = misc:CreateToggle({
       end
    end,
 })
+doxygen:Set(true)
 
 local pspeed = misc:CreateSlider({
    Name = "🏃‍♂️ Player Speed",
