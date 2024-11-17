@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.39",
+   Name = "[🍄] Fisch | Version 0.0.40",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -156,30 +156,43 @@ local function FreezePlayer()
 end
 
 local function EspIsonada()
-   local isonade = workspace:FindFirstChild("zones")
-   if isonade and isonade:FindFirstChild("fishing") and isonade.fishing:FindFirstChild("Isonade") then
-      local billboardGui = Instance.new("BillboardGui")
-      local textLabel = Instance.new("TextLabel")
+   local isonades = workspace:FindFirstChild("zones")
+   local player = game.Players.LocalPlayer
 
-      billboardGui.Adornee = isonade.fishing.Isonade
-      billboardGui.Size = UDim2.new(0, 200, 0, 50)
-      billboardGui.StudsOffset = Vector3.new(0, 5, 0)
-      billboardGui.AlwaysOnTop = true
+   if isonades and isonades:FindFirstChild("fishing") then
+      for _, isonade in pairs(isonades.fishing:GetChildren()) do
+         if isonade.Name == "Isonade" then
+            local billboardGui = Instance.new("BillboardGui")
+            local textLabel = Instance.new("TextLabel")
 
-      textLabel.Parent = billboardGui
-      textLabel.Size = UDim2.new(1, 0, 1, 0)
-      textLabel.BackgroundTransparency = 1
-      textLabel.Text = "Isonade Found!"
-      textLabel.TextColor3 = Color3.new(1, 0, 0)
-      textLabel.TextScaled = true
+            billboardGui.Adornee = isonade
+            billboardGui.Size = UDim2.new(0, 150, 0, 40)
+            billboardGui.StudsOffset = Vector3.new(0, 5, 0)
+            billboardGui.AlwaysOnTop = true
 
-      billboardGui.Parent = workspace
+            textLabel.Parent = billboardGui
+            textLabel.Size = UDim2.new(1, 0, 1, 0)
+            textLabel.BackgroundTransparency = 1
+            textLabel.TextColor3 = Color3.fromRGB(200, 100, 150)
+            textLabel.TextScaled = true
+            textLabel.Font = Enum.Font.FredokaOne
+
+            game:GetService("RunService").RenderStepped:Connect(function()
+               if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                  local distance = (player.Character.HumanoidRootPart.Position - isonade.Position).magnitude
+                  textLabel.Text = string.format("Isonade | %.0f Studs", distance)
+               end
+            end)
+
+            billboardGui.Parent = workspace
+         end
+      end
    end
 end
 
 local function DelEspIsonada()
    for _, gui in pairs(workspace:GetChildren()) do
-      if gui:IsA("BillboardGui") and gui:FindFirstChild("TextLabel") and gui.TextLabel.Text == "Isonade Found!" then
+      if gui:IsA("BillboardGui") and gui:FindFirstChild("TextLabel") and gui.TextLabel.Text:match("Isonade | ") then
          gui:Destroy()
       end
    end
