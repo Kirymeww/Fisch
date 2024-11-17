@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.48",
+   Name = "[🍄] Fisch | Version 0.0.49",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -34,32 +34,33 @@ local RunService = game:GetService("RunService")
 --Functions
 local function AutoCast()
    while _G.acast do
-      local args = {
-         [1] = 100,
-         [2] = 1
-      }
+      if not _G.castactive then
+         local player = game.Players.LocalPlayer
+         local rod = nil
 
-      local player = game.Players.LocalPlayer
-      local rod = nil
-
-      if player.Character and player.Character:FindFirstChildOfClass("Tool") then
-         rod = player.Character:FindFirstChildOfClass("Tool")
-      else
-         for _, item in ipairs(player.Backpack:GetChildren()) do
-            if item.Name:find("Rod") then
-               rod = item
-               break
+         if player.Character and player.Character:FindFirstChildOfClass("Tool") then
+            rod = player.Character:FindFirstChildOfClass("Tool")
+         else
+            for _, item in ipairs(player.Backpack:GetChildren()) do
+               if item.Name:find("Rod") then
+                  rod = item
+                  break
+               end
             end
          end
-      end
 
-      if rod then
-         if rod.Parent ~= player.Character then
-            rod.Parent = player.Character
-         end
+         if rod then
+            if rod.Parent ~= player.Character then
+               rod.Parent = player.Character
+            end
 
-         if rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
-            rod.events.cast:FireServer(unpack(args))
+            local screenSize = game:GetService("Workspace").CurrentCamera.ViewportSize
+            local centerPos = Vector2.new(screenSize.X / 2, screenSize.Y / 2)
+
+            VirtualInputManager:SendMouseButtonEvent(centerPos.X, centerPos.Y, Enum.UserInputType.MouseButton1, true, game, 1)
+            wait(2)
+            VirtualInputManager:SendMouseButtonEvent(centerPos.X, centerPos.Y, Enum.UserInputType.MouseButton1, false, game, 1)
+            _G.castactive = true
          end
       end
       wait(0.5)
@@ -93,6 +94,7 @@ local function NormalReelGui()
     if playerbar then
         playerbar.Position = UDim2.new(0.5, 0, 0.5, 0)
         playerbar.Size = UDim2.new(1, 0, 1.3, 0)
+        _G.castactive = false
     end
 end
 
@@ -112,6 +114,7 @@ local function AutoReel()
 
         if #args > 0 then
             game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
+            _G.castactive = false
         end
         wait(0.2)
     end
@@ -226,6 +229,7 @@ _G.asell = false
 _G.asellinhand = false
 _G.afixmap = false
 _G.afindchest = false
+_G.castactive = false
 
 _G.areelmode = nil
 _G.smerchant = nil
