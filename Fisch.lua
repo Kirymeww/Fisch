@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.51",
+   Name = "[🍄] Fisch | Version 0.0.52",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -35,8 +35,8 @@ local RunService = game:GetService("RunService")
 local function AutoCast()
    while _G.acast do
       if not _G.castactive then
-         local player = game.Players.LocalPlayer
          local rod = nil
+         local player = Players.LocalPlayer
 
          if player.Character and player.Character:FindFirstChildOfClass("Tool") then
             rod = player.Character:FindFirstChildOfClass("Tool")
@@ -57,11 +57,16 @@ local function AutoCast()
             local screenSize = game:GetService("Workspace").CurrentCamera.ViewportSize
             local centerPos = Vector2.new(math.floor(screenSize.X / 2), math.floor(screenSize.Y / 2))
 
-            -- Проверяем, что координаты - это целые числа
             if type(centerPos.X) == "number" and type(centerPos.Y) == "number" then
-                VirtualInputManager:SendMouseButtonEvent(centerPos.X, centerPos.Y, Enum.UserInputType.MouseButton1, true, game, 1)
+                local inputObject = Instance.new("InputObject")
+                inputObject.Position = centerPos
+                inputObject.UserInputType = Enum.UserInputType.MouseButton1
+                inputObject.InputType = Enum.InputType.MouseButton1
+
+                UserInputService.InputBegan:Fire(inputObject)
                 wait(2)
-                VirtualInputManager:SendMouseButtonEvent(centerPos.X, centerPos.Y, Enum.UserInputType.MouseButton1, false, game, 1)
+                UserInputService.InputEnded:Fire(inputObject)
+
                 _G.castactive = true
             else
                 warn("Invalid mouse position: ", centerPos.X, centerPos.Y)
