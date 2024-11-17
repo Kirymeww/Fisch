@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.44",
+   Name = "[🍄] Fisch | Version 0.0.45",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -86,23 +86,33 @@ local function AutoShake()
     end
 end
 
+local function NormalReelGui()
+    local player = Players.LocalPlayer
+    local playerbar = player.PlayerGui:FindFirstChild("reel") and player.PlayerGui.reel:FindFirstChild("bar") and player.PlayerGui.reel.bar:FindFirstChild("playerbar")
+    
+    if playerbar then
+        playerbar.Position = UDim2.new(0.5, 0, 0.5, 0)
+        playerbar.Size = UDim2.new(1, 0, 0, 0)
+    end
+end
+
 local function AutoReel()
-   while _G.areel do
-      local args
-      if _G.areelmode then
-         args = {
-            [1] = 100,
-            [2] = true
-         }
-      else
-         args = {
-            [1] = 100,
-            [2] = false
-         }
-      end
-      game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
-      wait(0.2)
-   end
+    local args = {}
+
+    while _G.areel do
+        if _G.areelmode then
+            NormalReelGui()
+            wait(0.01)
+        else
+            args = {
+                [1] = 100,
+                [2] = true
+            }
+        end
+
+        game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
+        wait(0.2)
+    end
 end
 
 local function AutoSell()
@@ -158,10 +168,9 @@ end
 local function EspIsonada()
    local player = game.Players.LocalPlayer
    local notifiedIsonades = {}
+   local isonades = workspace:FindFirstChild("zones")
 
    while _G.espisonada do
-      local isonades = workspace:FindFirstChild("zones")
-
       if isonades and isonades:FindFirstChild("fishing") then
          for _, isonade in pairs(isonades.fishing:GetChildren()) do
             if isonade.Name == "Isonade" and not isonade:FindFirstChild("BillboardGui") then
@@ -172,7 +181,6 @@ local function EspIsonada()
                billboardGui.Size = UDim2.new(0, 150, 0, 40)
                billboardGui.StudsOffset = Vector3.new(0, 5, 0)
                billboardGui.AlwaysOnTop = true
-
                textLabel.Parent = billboardGui
                textLabel.Size = UDim2.new(1, 0, 1, 0)
                textLabel.BackgroundTransparency = 1
@@ -180,19 +188,13 @@ local function EspIsonada()
                textLabel.TextScaled = false
                textLabel.TextSize = 14
                textLabel.Font = Enum.Font.FredokaOne
-
-               game:GetService("RunService").RenderStepped:Connect(function()
-                  if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                     textLabel.Text = "Isonade"
-                  end
-               end)
-
+               textLabel.Text = "Isonade"
                billboardGui.Parent = isonade
 
                if not notifiedIsonades[isonade] then
                   Rayfield:Notify({
-                     Title = "🟩 Success!",
-                     Content = "Isonade has appeared!",
+                     Title = "🚩 Event",
+                     Content = "Isonade zone has spawned!",
                      Duration = 3,
                      Image = 4483362458,
                   })
@@ -263,12 +265,12 @@ local ashake = ma:CreateToggle({
 local Section = ma:CreateSection("🔃 Auto Reel")
 local areelmode = ma:CreateDropdown({
    Name = "🎣 Select Reel Mode",
-   Options = {"🟩 Perfect Catch", "🟥 No Perfect Catch"},
-   CurrentOption = {"🟩 Perfect Catch"},
+   Options = {"🟩 Normal", "🟨 Instant"},
+   CurrentOption = {"🟩 Normal"},
    MultipleOptions = false,
    Flag = "acastmode",
    Callback = function(Options)
-         _G.areelmode = Options[1] == "🟩 Perfect Catch" and true or false
+         _G.areelmode = (Options == "🟩 Normal")
    end,
 })
 
@@ -287,15 +289,15 @@ local smerchant = ma:CreateDropdown({
    Name = "👨‍🦰 Select Merchant",
    Options = {
       "🌲 Marc", "🏖 Matt", "🌞 Max", "❄️ Mike", 
-      "⚰️ Cort", "🌊 Maverick", "🌌 Mel"
+      "⚰️ Cort", "🌊 Maverick", "🌌 Mel", "⛏ The Depth"
    },
-   CurrentOption = {""},
+   CurrentOption = "",  
    MultipleOptions = false,
    Flag = "smerchant",
    Callback = function(Options)
-         local selectedMerchant = Options[1]
-         local merchantName = selectedMerchant:match("%s*(%w+)")
-         _G.smerchant = merchantName .. " Merchant"
+      local selectedMerchant = Options
+      local merchantName = selectedMerchant:match("%s*(.+)")
+      _G.smerchant = merchantName .. " Merchant"
    end,
 })
 
