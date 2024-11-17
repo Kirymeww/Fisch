@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.51",
+   Name = "[🍄] Fisch | Version 0.0.52",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -200,7 +200,7 @@ local function Espisonade()
 
                billboardGui.Adornee = isonade
                billboardGui.Size = UDim2.new(0, 150, 0, 40)
-               billboardGui.StudsOffset = Vector3.new(0, 5, 0)
+               billboardGui.StudsOffset = Vector3.new(0, 110, 0)
                billboardGui.AlwaysOnTop = true
                textLabel.Parent = billboardGui
                textLabel.Size = UDim2.new(1, 0, 1, 0)
