@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.50",
+   Name = "[🍄] Fisch | Version 0.0.51",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -512,13 +512,13 @@ local titems = tp:CreateDropdown({
             teleportPlayer(476, 151, 231)
          elseif selectedItem == "🈳 Tidebreaker" then
             teleportPlayer(-1640, -214, -2851)
-         elseif selectedRod == "⚓ Coral Geode" then
+         elseif selectedItem == "⚓ Coral Geode" then
             teleportPlayer(-1640, -214, -2851)
-         elseif selectedRod == "👣 Flippers" then
+         elseif selectedItem == "👣 Flippers" then
             teleportPlayer(-1640, -214, -2851)
-         elseif selectedRod == "🪂 Glider" then
+         elseif selectedItem == "🪂 Glider" then
             teleportPlayer(-1640, -214, -2851)
-         elseif selectedRod == "🎺 Conception Conch" then
+         elseif selectedItem == "🎺 Conception Conch" then
             teleportPlayer(-1632, -214, -2862)
          end
    end,
