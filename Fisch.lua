@@ -54,23 +54,15 @@ local function AutoCast()
                rod.Parent = player.Character
             end
 
-            local screenSize = game:GetService("Workspace").CurrentCamera.ViewportSize
-            local centerPos = Vector2.new(math.floor(screenSize.X / 2), math.floor(screenSize.Y / 2))
+            local screenWidth = workspace.CurrentCamera.ViewportSize.X
+            local screenHeight = workspace.CurrentCamera.ViewportSize.Y
+            local centerX = screenWidth / 2
+            local centerY = screenHeight / 2
 
-            if type(centerPos.X) == "number" and type(centerPos.Y) == "number" then
-                local inputObject = Instance.new("InputObject")
-                inputObject.Position = centerPos
-                inputObject.UserInputType = Enum.UserInputType.MouseButton1
-                inputObject.InputType = Enum.InputType.MouseButton1
-
-                UserInputService.InputBegan:Fire(inputObject)
-                wait(2)
-                UserInputService.InputEnded:Fire(inputObject)
-
-                _G.castactive = true
-            else
-                warn("Invalid mouse position: ", centerPos.X, centerPos.Y)
-            end
+            SendMouseButtonEvent(centerX, centerY, 0, true, nil, 1)
+            wait(2)
+            SendMouseButtonEvent(centerX, centerY, 0, false, nil, 1)
+            _G.castactive = true
          end
       end
       wait(0.5)
