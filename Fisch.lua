@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.48",
+   Name = "[🍄] Fisch | Version 0.0.50",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -217,6 +217,15 @@ local function DelEspIsonada()
    end
 end
 
+function teleportPlayer(x, y, z)
+    local player = game.Players.LocalPlayer
+    if player and player.Character then
+        local character = player.Character
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(x, y, z)
+    end
+end
+
 --Values
 _G.acast = false
 _G.ashake = false
@@ -270,7 +279,7 @@ local areelmode = ma:CreateDropdown({
    Options = {"🟩 Normal", "🟨 Instant"},
    CurrentOption = {"🟩 Normal"},
    MultipleOptions = false,
-   Flag = "acastmode",
+   Flag = "areelmode",
    Callback = function(Options)
       if Options[1] == "🟩 Normal" then
          _G.areelmode = true
@@ -328,15 +337,6 @@ local asellinhand = ma:CreateToggle({
 })
 
 --Teleport
-function teleportPlayer(x, y, z)
-    local player = game.Players.LocalPlayer
-    if player and player.Character then
-        local character = player.Character
-        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-        humanoidRootPart.CFrame = CFrame.new(x, y, z)
-    end
-end
-
 local Section = tp:CreateSection("🌎 Teleports")
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
@@ -345,7 +345,7 @@ local tlocation = tp:CreateDropdown({
       "🍄 Mushgrove Swamp", "🏝 Terrapin Island", "❄️ Snowcap Island",
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
-      "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🪸 Haddock Rock",
+      "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🎸 Haddock Rock",
       "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike"
    },
    CurrentOption = {""},
@@ -385,7 +385,7 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(-1800, -143, -3404)
          elseif selectedLocation == "🌴 Earmark Isle" then
             teleportPlayer(1230, 125, 575)
-         elseif selectedLocation == "🗿 Haddock Rock" then
+         elseif selectedLocation == "🎸 Haddock Rock" then
             teleportPlayer(-570, 182, -413)
          elseif selectedLocation == "🌉 The Arch" then
             teleportPlayer(1000, 125, -1250)
@@ -427,17 +427,20 @@ local ttotem = tp:CreateDropdown({
 })
 
 local tfishingRods = tp:CreateDropdown({
-   Name = "🎣 Select Fishing Rod",
+   Name = "🍣 Select Fishing Rod",
    Options = {
-      "🎣 Basic Rods",
+      "🍣 Basic Rods",
       "🎯 Long Rod",
-      "⚡ Rapid & ⏳ Steady & 🍀 Fortune Rods", 
+      "⚡ Rapid & ⏳ Steady Rods",
+      "🍀 Fortune Rod",
       "🧲 Magnet Rod", 
       "🔱 Trident Rod",
       "🌌 Aurora Rod", 
       "🌙 Nocturnal Rod",
+      "🔍 Kings Rod",
+      "🛠️ Reinforced Rod",
       "🏴‍☠️ Scurvy Rod",
-      "🈳 Rod Of The Depths"
+      "🏮 Rod Of The Depths"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -445,12 +448,14 @@ local tfishingRods = tp:CreateDropdown({
    Callback = function(Options)
          local selectedRod = Options[1]
 
-         if selectedRod == "🎣 Basic Rods" then
+         if selectedRod == "🍣 Basic Rods" then
             teleportPlayer(454, 151, 239)
          elseif selectedRod == "🎯 Long Rod" then
             teleportPlayer(486, 175, 151)
-         elseif selectedRod == "⚡ Rapid & ⏳ Steady & 🍀 Fortune Rods" then
-            teleportPlayer(-1510, 142, 766)
+         elseif selectedRod == "⚡ Rapid & ⏳ Steady Rods" then
+            teleportPlayer(-1510, 142, 761)
+         elseif selectedRod == "🍀 Fortune Rod" then
+            teleportPlayer(-1523, 142, 770)
          elseif selectedRod == "🧲 Magnet Rod" then
             teleportPlayer(-200, 133, 1930)
          elseif selectedRod == "🔱 Trident Rod" then
@@ -459,9 +464,13 @@ local tfishingRods = tp:CreateDropdown({
             teleportPlayer(-141, -512, 1145)
          elseif selectedRod == "🌙 Nocturnal Rod" then
             teleportPlayer(-141, -512, 1145)
+         elseif selectedRod == "🔍 Kings Rod" then
+            teleportPlayer(1381, -808, -302)
+         elseif selectedRod == "🛠️ Reinforced Rod" then
+            teleportPlayer(-989, -243, -2693)
          elseif selectedRod == "🏴‍☠️ Scurvy Rod" then
             teleportPlayer(-2825, 215, 1512)
-         elseif selectedRod == "🈳 Rod Of The Depths" then
+         elseif selectedRod == "🏮 Rod Of The Depths" then
             teleportPlayer(1703, -903, 1443)
          end
    end,
@@ -476,6 +485,11 @@ local titems = tp:CreateDropdown({
       "🐟 Bait Crate",
       "🦈 Quality Bait Crate", 
       "🦀 Crab Cage"
+      "🈳 Tidebreaker",
+      "⚓ Coral Geode",
+      "👣 Flippers",
+      "🪂 Glider",
+      "🎺 Conception Conch",
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -495,6 +509,16 @@ local titems = tp:CreateDropdown({
             teleportPlayer(-174, 144, 1932)
          elseif selectedItem == "🦀 Crab Cage" then
             teleportPlayer(476, 151, 231)
+         elseif selectedItem == "🈳 Tidebreaker" then
+            teleportPlayer(-1640, -214, -2851)
+         elseif selectedRod == "⚓ Coral Geode" then
+            teleportPlayer(-1640, -214, -2851)
+         elseif selectedRod == "👣 Flippers" then
+            teleportPlayer(-1640, -214, -2851)
+         elseif selectedRod == "🪂 Glider" then
+            teleportPlayer(-1640, -214, -2851)
+         elseif selectedRod == "🎺 Conception Conch" then
+            teleportPlayer(-1632, -214, -2862)
          end
    end,
 })
