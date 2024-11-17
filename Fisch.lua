@@ -246,10 +246,10 @@ function teleportPlayer(x, y, z)
 end
 
 --Tabs
-local ma = Window:CreateTab("🎣 Main", "fish")
-local tp = Window:CreateTab("🌎 Teleport", "earth")
-local misc = Window:CreateTab("🛠 Misc", "hammer")
-local setting = Window:CreateTab("⚙ Settings", "bolt")
+local ma = Window:CreateTab("Main", "fish")
+local tp = Window:CreateTab("Teleport", "earth")
+local misc = Window:CreateTab("Misc", "hammer")
+local setting = Window:CreateTab("Settings", "bolt")
 
 --Main
 local Section = ma:CreateSection("🎣 Auto Cast")
